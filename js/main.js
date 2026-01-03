@@ -917,9 +917,8 @@ const sectionHeaders = document.querySelectorAll('.section-header');
 const heroPanel = document.querySelector('.hero-panel');
 const identityBox = document.querySelector('.identity-box');
 const terminalBox = document.querySelector('.terminal-box');
-const heroGradient = document.querySelector('.hero-gradient-mask');
 
-// Hero parallax - boxes split apart and gradient reveals content below
+// Hero parallax - boxes split apart and background fades to reveal content below
 ScrollTrigger.create({
     trigger: heroPanel,
     start: 'top top',
@@ -939,11 +938,9 @@ ScrollTrigger.create({
             duration: 0
         });
 
-        // Fade out gradient to reveal content below
-        gsap.to(heroGradient, {
-            opacity: 1 - progress,
-            duration: 0
-        });
+        // Fade hero background to transparent to reveal content below
+        const alpha = 1 - progress;
+        heroPanel.style.backgroundColor = `rgba(232, 224, 208, ${alpha})`;
     }
 });
 
