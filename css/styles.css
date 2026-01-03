@@ -145,6 +145,7 @@ body {
     position: relative;
     overflow: hidden;
     background-color: var(--color-paper);
+    z-index: 10; /* Above other sections */
 }
 
 /* Scribble Background - Full Page */
@@ -445,6 +446,13 @@ body {
     padding: 80px 40px;
     max-width: 1200px;
     margin: 0 auto;
+}
+
+/* First section (Public Art) starts behind hero */
+.panel-section:first-of-type {
+    margin-top: -100vh;
+    position: relative;
+    z-index: 1; /* Behind hero */
 }
 
 .section-header {
