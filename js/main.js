@@ -628,12 +628,13 @@ initHeroAnimation();
 
 const scribbleSvg = document.getElementById('scribble-svg');
 
-// Set up SVG viewBox
+// Set up SVG viewBox - full viewport
 function setupScribbleSvg() {
-    const rect = scribbleSvg.parentElement.getBoundingClientRect();
-    scribbleSvg.setAttribute('viewBox', `0 0 ${rect.width} ${rect.height}`);
-    scribbleSvg.setAttribute('width', rect.width);
-    scribbleSvg.setAttribute('height', rect.height);
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    scribbleSvg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+    scribbleSvg.setAttribute('width', width);
+    scribbleSvg.setAttribute('height', height);
 }
 
 // Generate an imperfect circle path
@@ -675,11 +676,9 @@ function generateScribblePath(centerX, centerY) {
 
 // Create and animate a scribble
 function createScribble() {
-    const rect = scribbleSvg.parentElement.getBoundingClientRect();
-
-    // Random start position anywhere on screen
-    const startX = Math.random() * rect.width;
-    const startY = Math.random() * rect.height;
+    // Random start position anywhere on full viewport
+    const startX = Math.random() * window.innerWidth;
+    const startY = Math.random() * window.innerHeight;
 
     const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     path.setAttribute('d', generateScribblePath(startX, startY));
