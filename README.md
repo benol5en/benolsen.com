@@ -2,7 +2,7 @@
 
 Personal portfolio site for Ben Olsen.
 
-After nearly two decades of traditional web hosting, this site has finally moved to a modern static deployment via Cloudflare Pages.
+After maintaining this site on traditional web hosting since 2003, it has finally moved to a modern static deployment via Cloudflare Pages.
 
 ## Stack
 
