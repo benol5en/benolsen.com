@@ -922,7 +922,7 @@ const terminalBox = document.querySelector('.terminal-box');
 ScrollTrigger.create({
     trigger: heroPanel,
     start: 'top top',
-    end: '+=100%',
+    end: '+=50%', // Shorter pin duration - unpin as soon as boxes are off
     pin: true,
     scrub: 1,
     onUpdate: (self) => {
