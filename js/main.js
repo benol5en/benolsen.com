@@ -917,16 +917,18 @@ const sectionHeaders = document.querySelectorAll('.section-header');
 const heroPanel = document.querySelector('.hero-panel');
 const identityBox = document.querySelector('.identity-box');
 const terminalBox = document.querySelector('.terminal-box');
+const heroGradient = document.querySelector('.hero-gradient-mask');
 
-// Hero parallax - boxes split apart as you scroll
+// Hero parallax - boxes split apart and gradient reveals content below
 ScrollTrigger.create({
     trigger: heroPanel,
     start: 'top top',
-    end: '+=50%', // Shorter pin duration - unpin as soon as boxes are off
+    end: '+=40%', // Faster transition
     pin: true,
     scrub: 1,
     onUpdate: (self) => {
         const progress = self.progress;
+
         // Move boxes in opposite directions
         gsap.to(identityBox, {
             x: -window.innerWidth * progress,
@@ -934,6 +936,12 @@ ScrollTrigger.create({
         });
         gsap.to(terminalBox, {
             x: window.innerWidth * progress,
+            duration: 0
+        });
+
+        // Fade out gradient to reveal content below
+        gsap.to(heroGradient, {
+            opacity: 1 - progress,
             duration: 0
         });
     }
