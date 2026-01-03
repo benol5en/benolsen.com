@@ -759,7 +759,6 @@ body {
 .diagram-footer {
     padding: 60px 40px;
     text-align: center;
-    background: var(--color-paper);
 }
 
 .footer-box {
@@ -770,6 +769,9 @@ body {
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.15em;
+    border: var(--border-width) solid var(--color-ink);
+    background: var(--color-cream);
+    padding: 15px 30px;
 }
 
 .footer-symbol {
