@@ -712,6 +712,10 @@ body {
 /* ============================================
    ABOUT SECTION
    ============================================ */
+#about {
+    background: var(--color-cream);
+}
+
 .about-diagram {
     max-width: 400px;
     margin: 0 auto;
