@@ -915,6 +915,29 @@ const navLinks = document.querySelectorAll('.nav-link');
 const panels = document.querySelectorAll('.grid-panel');
 const sectionHeaders = document.querySelectorAll('.section-header');
 const heroPanel = document.querySelector('.hero-panel');
+const identityBox = document.querySelector('.identity-box');
+const terminalBox = document.querySelector('.terminal-box');
+
+// Hero parallax - boxes split apart as you scroll
+ScrollTrigger.create({
+    trigger: heroPanel,
+    start: 'top top',
+    end: '+=100%',
+    pin: true,
+    scrub: 1,
+    onUpdate: (self) => {
+        const progress = self.progress;
+        // Move boxes in opposite directions
+        gsap.to(identityBox, {
+            x: -window.innerWidth * progress,
+            duration: 0
+        });
+        gsap.to(terminalBox, {
+            x: window.innerWidth * progress,
+            duration: 0
+        });
+    }
+});
 
 // Show navigation after scrolling past hero
 ScrollTrigger.create({
