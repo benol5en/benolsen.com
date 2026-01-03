@@ -144,16 +144,16 @@ body {
     padding: 60px 40px;
     background: var(--color-paper);
     position: relative;
-    overflow: hidden;
+    overflow: visible; /* Allow gradient to reveal content below */
 }
 
 .hero-gradient-mask {
     position: absolute;
-    bottom: 0;
+    bottom: -50vh; /* Extend below hero to cover next section */
     left: 0;
     width: 100%;
-    height: 50%;
-    background: linear-gradient(to top, var(--color-paper) 0%, transparent 100%);
+    height: 100vh;
+    background: var(--color-paper);
     pointer-events: none;
     z-index: 10;
 }
