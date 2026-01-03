@@ -748,9 +748,10 @@ body {
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    opacity: 0.4;
-    padding: 5px 10px;
-    border: 1px dashed var(--color-ink);
+    padding: 8px 15px;
+    border: var(--border-width) solid var(--color-ink);
+    background: var(--color-cream);
+    opacity: 0.9;
 }
 
 /* ============================================
