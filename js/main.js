@@ -962,13 +962,14 @@ sectionHeaders.forEach(header => {
     });
 });
 
-// Reveal panels with stagger effect
+// Reveal panels with stagger effect + exit animations
 const panelGroups = document.querySelectorAll('.comic-grid');
 
 panelGroups.forEach(grid => {
     const gridPanels = grid.querySelectorAll('.grid-panel');
 
     gridPanels.forEach((panel, index) => {
+        // Reveal animation
         gsap.to(panel, {
             scrollTrigger: {
                 trigger: panel,
@@ -983,6 +984,25 @@ panelGroups.forEach(grid => {
                         onStart: () => panel.classList.add('revealed')
                     });
                 }
+            }
+        });
+
+        // Exit animation - slide off left or right as panel scrolls up
+        ScrollTrigger.create({
+            trigger: panel,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 1,
+            onUpdate: (self) => {
+                const progress = self.progress;
+                // Alternate direction based on index
+                const direction = index % 2 === 0 ? -1 : 1;
+                const distance = window.innerWidth * progress;
+
+                gsap.to(panel, {
+                    x: direction * distance,
+                    duration: 0
+                });
             }
         });
     });
