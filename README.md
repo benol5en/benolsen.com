@@ -9,4 +9,5 @@ After maintaining this site on traditional web hosting since 2003, it has finall
 - Static HTML/CSS/JS
 - Hosted on Cloudflare Pages
 - Auto-deploys from this repo
+- Version control via GitHub
 
