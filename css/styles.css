@@ -726,6 +726,8 @@ body {
     border: var(--border-width) solid var(--color-ink);
     padding: 40px;
     background-color: var(--color-cream);
+    position: relative;
+    z-index: 2;
 }
 
 .diagram-connectors {
