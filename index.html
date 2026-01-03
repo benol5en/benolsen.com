@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ben Olsen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Diagrammatic Navigation -->
+    <nav class="diagram-nav">
+        <div class="nav-box nav-title">
+            <span class="small-label">the works of</span>
+            <span class="name">Ben Olsen</span>
+        </div>
+        <div class="nav-connector"></div>
+        <div class="nav-branches">
+            <a href="#public-art" class="nav-box nav-link" data-section="public-art">
+                <span class="nav-number">01</span>
+                <span class="nav-label">Public Art</span>
+            </a>
+            <a href="#performance" class="nav-box nav-link" data-section="performance">
+                <span class="nav-number">02</span>
+                <span class="nav-label">Performance</span>
+            </a>
+            <a href="#about" class="nav-box nav-link" data-section="about">
+                <span class="nav-number">03</span>
+                <span class="nav-label">About</span>
+            </a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Panel - Slot Machine Identity + Terminal -->
+        <section class="panel hero-panel" id="hero">
+            <svg class="scribble-bg" id="scribble-svg"></svg>
+            <div class="hero-dual-box">
+                <!-- Identity Slot Machine -->
+                <div class="panel-border identity-box">
+                    <div class="slot-machine">
+                        <div class="slot-line" data-slot="0">Welcome</div>
+                        <div class="slot-line" data-slot="1">To</div>
+                        <div class="slot-line" data-slot="2">benolsen.com</div>
+                    </div>
+                </div>
+
+                <!-- Terminal Box -->
+                <div class="panel-border terminal-box">
+                    <div class="terminal">
+                        <div class="terminal-output"></div>
+                        <div class="terminal-input-line">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-input"></span>
+                            <span class="terminal-cursor">_</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Public Art Section - Multi-panel grid -->
+        <section class="panel-section" id="public-art">
+            <div class="section-header">
+                <div class="header-box">
+                    <span class="section-number">01</span>
+                    <h2>Public Art</h2>
+                    <p class="section-subtitle">installations & interventions</p>
+                </div>
+                <div class="header-line"></div>
+            </div>
+
+            <div class="comic-grid">
+                <!-- Cosmic Love Blanket - Large panel -->
+                <article class="grid-panel large" data-project="blanket">
+                    <div class="panel-inner">
+                        <div class="panel-header">
+                            <span class="panel-tag">ongoing since 2018</span>
+                            <h3>Cosmic Love Blanket</h3>
+                        </div>
+                        <div class="panel-content">
+                            <div class="panel-illustration blanket-illustration"></div>
+                            <div class="panel-description">
+                                <p>Large fuzzy blankets printed with my body, given as gifts to strangers.</p>
+                                <p class="detail">~70 blankets now in the wild. The real art is the stranger who discovers it at a thrift store.</p>
+                            </div>
+                        </div>
+                        <div class="panel-flowchart">
+                            <span class="flow-step">gift</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">use</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">donate</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">found art</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Dig Pit - Medium panel -->
+                <article class="grid-panel medium" data-project="digpit">
+                    <div class="panel-inner">
+                        <h3>Dig Pit</h3>
+                        <div class="panel-illustration pit-illustration"></div>
+                        <p>Filmed myself digging until I disappeared. Buried the footage in the same hole under plexiglass.</p>
+                        <span class="panel-note">→ tiny looping elf</span>
+                    </div>
+                </article>
+
+                <!-- Bottomless Pit - Medium panel -->
+                <article class="grid-panel medium" data-project="bottomless">
+                    <div class="panel-inner">
+                        <h3>Bottomless Pit</h3>
+                        <div class="panel-illustration bottomless-illustration"></div>
+                        <p>Fake land-use permits for bottomless pits in national parks.</p>
+                        <span class="panel-note">"the bottomless pit guy"</span>
+                    </div>
+                </article>
+
+                <!-- Noses - Small panel -->
+                <article class="grid-panel small" data-project="noses">
+                    <div class="panel-inner">
+                        <h3>Noses</h3>
+                        <p>Ceramic noses for telephone poles.</p>
+                        <span class="panel-caption">surveillance → smelling</span>
+                    </div>
+                </article>
+
+                <!-- Telephone Booth - Small panel -->
+                <article class="grid-panel small" data-project="telephone">
+                    <div class="panel-inner">
+                        <h3>Telephone Booth</h3>
+                        <p>Free public phone booths via WiFi.</p>
+                        <span class="panel-caption">in progress</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Performance Section -->
+        <section class="panel-section" id="performance">
+            <div class="section-header">
+                <div class="header-box">
+                    <span class="section-number">02</span>
+                    <h2>Performance</h2>
+                    <p class="section-subtitle">actions & endurance</p>
+                </div>
+                <div class="header-line"></div>
+            </div>
+
+            <div class="comic-grid performance-grid">
+                <!-- Colors - Yellow Chicken Suits -->
+                <article class="grid-panel medium" data-project="colors">
+                    <div class="panel-inner">
+                        <h3>Colors</h3>
+                        <div class="panel-illustration colors-illustration"></div>
+                        <p>Seattle, early 2000s. Groups in coordinated colors walked the city.</p>
+                        <span class="panel-note">I led the yellow group — everyone in chicken suits.</span>
+                    </div>
+                </article>
+
+                <!-- Clean -->
+                <article class="grid-panel medium" data-project="clean">
+                    <div class="panel-inner">
+                        <h3>Clean</h3>
+                        <div class="panel-illustration clean-illustration"></div>
+                        <p>12 people in white masks publicly cleaned Pioneer Square.</p>
+                        <div class="panel-observation">
+                            <span class="obs-label">daytime:</span> weirdo<br>
+                            <span class="obs-label">art walk:</span> art
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Stream -->
+                <article class="grid-panel small" data-project="stream">
+                    <div class="panel-inner">
+                        <h3>Stream</h3>
+                        <p>Dancing in the creek to LCD Soundsystem.</p>
+                    </div>
+                </article>
+
+                <!-- Algreens -->
+                <article class="grid-panel small" data-project="algreens">
+                    <div class="panel-inner">
+                        <h3>Algreens</h3>
+                        <p>Walgreens with missing W + Al Green music.</p>
+                    </div>
+                </article>
+
+                <!-- Wonderland -->
+                <article class="grid-panel wide" data-project="wonderland">
+                    <div class="panel-inner">
+                        <h3>Wonderland Trail</h3>
+                        <div class="panel-stats">
+                            <span class="stat">~100 miles</span>
+                            <span class="stat-divider">·</span>
+                            <span class="stat">around Mt. Rainier</span>
+                            <span class="stat-divider">·</span>
+                            <span class="stat">3x completed</span>
+                        </div>
+                        <p class="philosophy">Is hiking art? The line blurs.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- About/Contact Section -->
+        <section class="panel-section" id="about">
+            <div class="section-header">
+                <div class="header-box">
+                    <span class="section-number">03</span>
+                    <h2>About</h2>
+                </div>
+            </div>
+
+            <div class="about-diagram">
+                <div class="about-box">
+                    <p>More coming soon.</p>
+                </div>
+                <div class="diagram-connectors">
+                    <div class="connector-line"></div>
+                    <div class="connector-endpoints">
+                        <span class="endpoint">resume</span>
+                        <span class="endpoint">contact</span>
+                        <span class="endpoint">links</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="diagram-footer">
+        <div class="footer-box">
+            <span class="footer-symbol">◆</span>
+            <span class="footer-text">Ben Olsen</span>
+            <span class="footer-symbol">◆</span>
+        </div>
+    </footer>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

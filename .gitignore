@@ -1,0 +1,24 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# AI agent files (keep local only)
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+ideas.md
+
+# WordPress export (not needed in repo)
+redirect/
+
+# Editor files
+.vscode/
+.idea/
+
+# Temporary files
+*.log
+*.tmp
