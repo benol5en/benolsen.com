@@ -725,7 +725,7 @@ body {
 .about-box {
     border: var(--border-width) solid var(--color-ink);
     padding: 40px;
-    background: var(--color-cream);
+    background-color: var(--color-cream);
 }
 
 .diagram-connectors {
