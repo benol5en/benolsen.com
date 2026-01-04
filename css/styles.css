@@ -686,6 +686,18 @@ body {
     margin-top: auto;
 }
 
+/* SoundCloud embeds */
+.soundcloud-embeds {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.soundcloud-embeds iframe {
+    border-radius: 4px;
+}
+
 /* Panel illustrations (placeholder) */
 .panel-illustration {
     background: var(--color-paper);
