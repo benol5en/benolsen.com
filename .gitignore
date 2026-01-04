@@ -22,3 +22,5 @@ redirect/
 # Temporary files
 *.log
 *.tmp
+# Unused assets (not deployed)
+assets/
