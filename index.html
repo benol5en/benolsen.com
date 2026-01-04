@@ -1,44 +1,85 @@
 <!DOCTYPE html>
+<!--
+    Ben Olsen Portfolio
+
+    A personal portfolio site with a vintage comic panel aesthetic,
+    featuring a Game of Life background, a terminal that argues with you,
+    and a computer that's better at minesweeper than you'll ever be.
+
+    Built with: HTML, CSS, vanilla JavaScript, GSAP, and questionable decisions.
+-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ben Olsen - Engineer, artist, trail runner, chicken suit wearer, and professional question asker.">
     <title>Ben Olsen</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <!-- Diagrammatic Navigation -->
+    <!-- ====================================================================
+         NAVIGATION
+         Fixed sidebar that appears after scrolling past hero.
+         Collapsible on mobile (tap the title to expand).
+         ==================================================================== -->
     <nav class="diagram-nav">
         <div class="nav-box nav-title">
-            <span class="small-label">the works of</span>
-            <span class="name">Ben Olsen</span>
+            <span class="small-label">the life of</span>
+            <span class="name">ben olsen</span>
         </div>
         <div class="nav-connector"></div>
         <div class="nav-branches">
-            <a href="#public-art" class="nav-box nav-link" data-section="public-art">
+            <a href="#about" class="nav-box nav-link" data-section="about">
                 <span class="nav-number">01</span>
-                <span class="nav-label">Public Art</span>
+                <span class="nav-label">About</span>
+            </a>
+            <a href="#art" class="nav-box nav-link" data-section="art">
+                <span class="nav-number">02</span>
+                <span class="nav-label">Art</span>
+            </a>
+            <a href="#computer" class="nav-box nav-link" data-section="computer">
+                <span class="nav-number">03</span>
+                <span class="nav-label">Computer</span>
+            </a>
+            <a href="#music" class="nav-box nav-link" data-section="music">
+                <span class="nav-number">04</span>
+                <span class="nav-label">Music</span>
             </a>
             <a href="#performance" class="nav-box nav-link" data-section="performance">
-                <span class="nav-number">02</span>
+                <span class="nav-number">05</span>
                 <span class="nav-label">Performance</span>
             </a>
-            <a href="#about" class="nav-box nav-link" data-section="about">
-                <span class="nav-number">03</span>
-                <span class="nav-label">About</span>
+            <a href="#poetry" class="nav-box nav-link" data-section="poetry">
+                <span class="nav-number">06</span>
+                <span class="nav-label">Poetry</span>
+            </a>
+            <a href="#public-art" class="nav-box nav-link" data-section="public-art">
+                <span class="nav-number">07</span>
+                <span class="nav-label">Public Art</span>
+            </a>
+            <a href="#video" class="nav-box nav-link" data-section="video">
+                <span class="nav-number">08</span>
+                <span class="nav-label">Video</span>
             </a>
         </div>
     </nav>
 
-    <!-- Full page scribble background -->
+    <!-- Scribble Background - Wobbly circles that accumulate over time -->
     <svg class="scribble-bg" id="scribble-svg"></svg>
 
     <main>
-        <!-- Hero Panel - Slot Machine Identity + Terminal -->
+        <!-- ================================================================
+             HERO SECTION
+             The main event: Game of Life background, identity slot machine,
+             and a terminal that boots up, processes your query, fails to
+             answer it, argues with you, and then plays minesweeper.
+             ================================================================ -->
         <section class="panel hero-panel" id="hero">
+            <canvas id="gameOfLife"></canvas>
             <div class="hero-dual-box">
                 <!-- Identity Slot Machine -->
                 <div class="panel-border identity-box">
@@ -63,18 +104,111 @@
             </div>
         </section>
 
+        <!-- ================================================================
+             CONTENT SECTIONS
+             Each section is a panel-section containing a comic-grid of panels.
+             Panels animate in on scroll and slide off when scrolling past.
+             ================================================================ -->
+
+        <!-- About Section -->
+        <section class="panel-section" id="about">
+            <div class="comic-grid">
+                <!-- About Title Panel with Timeline -->
+                <article class="grid-panel large" data-project="about-title">
+                    <div class="panel-inner">
+                        <div class="section-title-panel">
+                            <div class="title-content">
+                                <span class="section-number">01</span>
+                                <h2>about ben</h2>
+                            </div>
+                            <div class="title-illustration about-illustration">
+                                <img src="images/about-beforeafter.png" alt="Before and After">
+                            </div>
+                        </div>
+                        <div class="panel-flowchart">
+                            <span class="flow-step">1975</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">1980</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">1994</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">1997</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">2000</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">2004</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">2010</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">2016</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">2020</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">2026</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Resume - Small panel -->
+                <article class="grid-panel small" data-project="resume">
+                    <div class="panel-inner">
+                        <h3>Resume</h3>
+                        <p>&lt;coming soon&gt;</p>
+                    </div>
+                </article>
+
+                <!-- Contact - Small panel -->
+                <article class="grid-panel small" data-project="contact">
+                    <div class="panel-inner">
+                        <h3>Contact</h3>
+                        <p>&lt;coming soon&gt;</p>
+                    </div>
+                </article>
+
+                <!-- Links - Small panel -->
+                <article class="grid-panel small" data-project="links">
+                    <div class="panel-inner">
+                        <h3>Links</h3>
+                        <p>&lt;coming soon&gt;</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
         <!-- Public Art Section - Multi-panel grid -->
         <section class="panel-section" id="public-art">
-            <div class="section-header">
-                <div class="header-box">
-                    <span class="section-number">01</span>
-                    <h2>Public Art</h2>
-                    <p class="section-subtitle">installations & interventions</p>
-                </div>
-                <div class="header-line"></div>
-            </div>
-
             <div class="comic-grid">
+                <!-- Public Art Title Panel with Timeline -->
+                <article class="grid-panel large" data-project="publicart-title">
+                    <div class="panel-inner">
+                        <div class="section-title-panel">
+                            <div class="title-content">
+                                <span class="section-number">07</span>
+                                <h2>Public Art</h2>
+                                <p class="section-subtitle">installations & interventions</p>
+                            </div>
+                            <div class="title-illustration publicart-illustration">
+                                <img src="images/publicart-panel.png" alt="Public Art illustration">
+                            </div>
+                        </div>
+                        <div class="panel-flowchart">
+                            <span class="flow-step">Seattle</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">Websites</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">Knox</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">Hampshire</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">Europe</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">Tacoma</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">Lakewood</span>
+                        </div>
+                    </div>
+                </article>
+
                 <!-- Cosmic Love Blanket - Large panel -->
                 <article class="grid-panel large" data-project="blanket">
                     <div class="panel-inner">
@@ -85,8 +219,8 @@
                         <div class="panel-content">
                             <div class="panel-illustration blanket-illustration"></div>
                             <div class="panel-description">
-                                <p>Large fuzzy blankets printed with my body, given as gifts to strangers.</p>
-                                <p class="detail">~70 blankets now in the wild. The real art is the stranger who discovers it at a thrift store.</p>
+                                <p>Large blankets printed with my shirtless body, given to friends eventually given to goodwill.</p>
+                                <p class="detail">~50 blankets now in the wild. The real art is the stranger who discovers it at a thrift store.</p>
                             </div>
                         </div>
                         <div class="panel-flowchart">
@@ -94,9 +228,11 @@
                             <span class="flow-arrow">→</span>
                             <span class="flow-step">use</span>
                             <span class="flow-arrow">→</span>
+                            <span class="flow-step">document</span>
+                            <span class="flow-arrow">→</span>
                             <span class="flow-step">donate</span>
                             <span class="flow-arrow">→</span>
-                            <span class="flow-step">found art</span>
+                            <span class="flow-step">public art</span>
                         </div>
                     </div>
                 </article>
@@ -117,7 +253,7 @@
                         <h3>Bottomless Pit</h3>
                         <div class="panel-illustration bottomless-illustration"></div>
                         <p>Fake land-use permits for bottomless pits in national parks.</p>
-                        <span class="panel-note">"the bottomless pit guy"</span>
+                        <span class="panel-note">Hampshire College Div III</span>
                     </div>
                 </article>
 
@@ -143,16 +279,37 @@
 
         <!-- Performance Section -->
         <section class="panel-section" id="performance">
-            <div class="section-header">
-                <div class="header-box">
-                    <span class="section-number">02</span>
-                    <h2>Performance</h2>
-                    <p class="section-subtitle">actions & endurance</p>
-                </div>
-                <div class="header-line"></div>
-            </div>
-
             <div class="comic-grid performance-grid">
+                <!-- Performance Title Panel with Timeline -->
+                <article class="grid-panel large" data-project="performance-title">
+                    <div class="panel-inner">
+                        <div class="section-title-panel">
+                            <div class="title-content">
+                                <span class="section-number">05</span>
+                                <h2>Perform</h2>
+                                <p class="section-subtitle">actions & endurance</p>
+                            </div>
+                            <div class="title-illustration performance-illustration">
+                                <img src="images/performance-panel.png" alt="Performance illustration">
+                            </div>
+                        </div>
+                        <div class="panel-flowchart">
+                            <span class="flow-step">Steve Martin</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">Ana</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">NWS</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">JZ</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">College</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">Zen</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">Youtube</span>
+                        </div>
+                    </div>
+                </article>
                 <!-- Colors - Yellow Chicken Suits -->
                 <article class="grid-panel medium" data-project="colors">
                     <div class="panel-inner">
@@ -171,7 +328,7 @@
                         <p>12 people in white masks publicly cleaned Pioneer Square.</p>
                         <div class="panel-observation">
                             <span class="obs-label">daytime:</span> weirdo<br>
-                            <span class="obs-label">art walk:</span> art
+                            <span class="obs-label">night time:</span> art
                         </div>
                     </div>
                 </article>
@@ -203,37 +360,326 @@
                             <span class="stat-divider">·</span>
                             <span class="stat">3x completed</span>
                         </div>
-                        <p class="philosophy">Is hiking art? The line blurs.</p>
+                        <p class="philosophy">Is hiking art? yes.</p>
                     </div>
                 </article>
             </div>
         </section>
 
-        <!-- About/Contact Section -->
-        <section class="panel-section" id="about">
-            <div class="section-header">
-                <div class="header-box">
-                    <span class="section-number">03</span>
-                    <h2>About</h2>
-                </div>
-            </div>
-
-            <div class="about-diagram">
-                <div class="about-box">
-                    <p>More coming soon.</p>
-                </div>
-                <div class="diagram-connectors">
-                    <div class="connector-line"></div>
-                    <div class="connector-endpoints">
-                        <span class="endpoint">resume</span>
-                        <span class="endpoint">contact</span>
-                        <span class="endpoint">links</span>
+        <!-- Music Section -->
+        <section class="panel-section" id="music">
+            <div class="comic-grid">
+                <!-- Music Title Panel with Timeline -->
+                <article class="grid-panel large" data-project="music-title">
+                    <div class="panel-inner">
+                        <div class="section-title-panel">
+                            <div class="title-content">
+                                <span class="section-number">04</span>
+                                <h2>Music</h2>
+                                <p class="section-subtitle">makes me move</p>
+                            </div>
+                            <div class="title-illustration music-illustration">
+                                <img src="images/music-panel.png" alt="Music illustration">
+                            </div>
+                        </div>
+                        <div class="panel-flowchart">
+                            <span class="flow-step">Kindergarten</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">Road Trips</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">90s</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">2010</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">Ableton</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">news2mtv</span>
+                        </div>
                     </div>
-                </div>
+                </article>
+
+                <!-- WVKC Radio - Medium panel -->
+                <article class="grid-panel medium" data-project="wvkc">
+                    <div class="panel-inner">
+                        <h3>WVKC Radio</h3>
+                        <p>Knox College <em>Early</em> morning DJ.</p>
+                        <span class="panel-note">audio of this coming soon</span>
+                    </div>
+                </article>
+
+                <!-- My Music - Small panel -->
+                <article class="grid-panel small" data-project="mymusic">
+                    <div class="panel-inner">
+                        <h3>some stuff i made</h3>
+                        <p><a href="https://soundcloud.com/benolsen" target="_blank">soundcloud.com/benolsen</a></p>
+                        <span class="panel-caption">"drip" & "breaking it up"</span>
+                    </div>
+                </article>
+
+                <!-- Willis - Small panel -->
+                <article class="grid-panel small" data-project="willis">
+                    <div class="panel-inner">
+                        <h3>Willis</h3>
+                        <p>ah, high school.</p>
+                        <span class="panel-note">the beeeeees!</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Art Section -->
+        <section class="panel-section" id="art">
+            <div class="comic-grid">
+                <!-- Art Title Panel with Timeline -->
+                <article class="grid-panel large" data-project="art-title">
+                    <div class="panel-inner">
+                        <div class="section-title-panel">
+                            <div class="title-content">
+                                <span class="section-number">02</span>
+                                <h2>Art</h2>
+                                <p class="section-subtitle">Thanks mom</p>
+                            </div>
+                            <div class="title-illustration art-illustration">
+                                <img src="images/art-panel.png" alt="Art illustration">
+                            </div>
+                        </div>
+                        <div class="panel-flowchart">
+                            <span class="flow-step">mom</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">cartoonist</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">summer camps</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">europe</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">degree</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">div4</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">ideas</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Photography - Medium panel -->
+                <article class="grid-panel medium" data-project="photography">
+                    <div class="panel-inner">
+                        <h3>Photography</h3>
+                        <p>&lt;update to this section coming&gt;</p>
+                        <span class="panel-note">&lt;this takes time!&gt;</span>
+                    </div>
+                </article>
+
+                <!-- Drawings - Medium panel -->
+                <article class="grid-panel medium" data-project="drawings">
+                    <div class="panel-inner">
+                        <h3>Drawings</h3>
+                        <p>&lt;update to this section coming&gt;</p>
+                        <span class="panel-note">&lt;this takes time!&gt;</span>
+                    </div>
+                </article>
+
+                <!-- Ceramics - Medium panel -->
+                <article class="grid-panel medium" data-project="ceramics">
+                    <div class="panel-inner">
+                        <h3>Ceramics</h3>
+                        <p>&lt;update to this section coming&gt;</p>
+                        <span class="panel-note">&lt;this takes time!&gt;</span>
+                    </div>
+                </article>
+
+                <!-- Printmaking - Small panel -->
+                <article class="grid-panel small" data-project="printmaking">
+                    <div class="panel-inner">
+                        <h3>Printmaking</h3>
+                        <p>&lt;update to this section coming&gt;</p>
+                        <span class="panel-note">&lt;this takes time!&gt;</span>
+                    </div>
+                </article>
+
+                <!-- Painting - Small panel -->
+                <article class="grid-panel small" data-project="painting">
+                    <div class="panel-inner">
+                        <h3>Painting</h3>
+                        <p>&lt;update to this section coming&gt;</p>
+                        <span class="panel-note">&lt;this takes time!&gt;</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Computer Section -->
+        <section class="panel-section" id="computer">
+            <div class="comic-grid">
+                <!-- Computer Title Panel with Timeline -->
+                <article class="grid-panel large" data-project="computer-title">
+                    <div class="panel-inner">
+                        <div class="section-title-panel">
+                            <div class="title-content">
+                                <span class="section-number">03</span>
+                                <h2>Computer</h2>
+                                <p class="section-subtitle">286 → senior network engineer</p>
+                            </div>
+                            <div class="title-illustration computer-illustration">
+                                <img src="images/computer-panel.png" alt="Computer illustration">
+                            </div>
+                        </div>
+                        <div class="panel-flowchart">
+                            <span class="flow-step">sysadmin</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">webdev</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">consultant</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">engineer</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Early Days - Large panel -->
+                <article class="grid-panel large" data-project="origin">
+                    <div class="panel-inner">
+                        <h3>early days</h3>
+                        <div class="panel-content">
+                            <p>First computer: 286 with Word 1.0 (newspaper ad)</p>
+                            <p>9600 baud modem → 14.4k modem (mind blowing!)</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Flash Era - Medium panel -->
+                <article class="grid-panel medium" data-project="flash">
+                    <div class="panel-inner">
+                        <h3>Macromedia Flash</h3>
+                        <p>Big into Flash. Thought it was the future.</p>
+                        <span class="panel-note">narrator: it wasn't</span>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Poetry Section -->
+        <section class="panel-section" id="poetry">
+            <div class="comic-grid">
+                <!-- Poetry Title Panel -->
+                <article class="grid-panel large" data-project="poetry-title">
+                    <div class="panel-inner">
+                        <div class="section-title-panel">
+                            <div class="title-content">
+                                <span class="section-number">06</span>
+                                <h2>Poetry</h2>
+                                <p class="section-subtitle">bad but I love it</p>
+                            </div>
+                            <div class="title-illustration poetry-illustration">
+                                <img src="images/poetry-panel.png" alt="Poetry illustration">
+                            </div>
+                        </div>
+                        <div class="panel-flowchart">
+                            <span class="flow-step">book reports</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">philosophy</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">divorce</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">toast</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">EKF</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">freedoom</span>
+                        </div>
+                    </div>
+                </article>
+                <!-- Finding Voice - Wide panel -->
+                <article class="grid-panel wide" data-project="voice">
+                    <div class="panel-inner">
+                        <h3>Finding My Voice</h3>
+                        <p>Started writing 2009-2011. I'll put my stuff up here eventually</p>
+                        <div class="panel-observation">
+                            writing about the toast that's inside of my body
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Examples - Medium panel -->
+                <article class="grid-panel medium" data-project="examples">
+                    <div class="panel-inner">
+                        <h3>Words & Pics</h3>
+                        <p>Examples coming soon.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Video Section -->
+        <section class="panel-section" id="video">
+            <div class="comic-grid">
+                <!-- Video Title Panel -->
+                <article class="grid-panel large" data-project="video-title">
+                    <div class="panel-inner">
+                        <div class="section-title-panel">
+                            <div class="title-content">
+                                <span class="section-number">08</span>
+                                <h2>Video</h2>
+                                <p class="section-subtitle">from Bruce Lee to video art</p>
+                            </div>
+                            <div class="title-illustration video-illustration">
+                                <img src="images/video-panel.png" alt="Video illustration">
+                            </div>
+                        </div>
+                        <div class="panel-flowchart">
+                            <span class="flow-step">bruce lee</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">art barn</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">art and audience</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">documentation</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">253</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">youtube</span>
+                        </div>
+                    </div>
+                </article>
+                <!-- Early Days - Medium panel -->
+                <article class="grid-panel medium" data-project="early">
+                    <div class="panel-inner">
+                        <h3>Early Days</h3>
+                        <p>Kindergarten: Bruce Lee remixes with Jason.</p>
+                    </div>
+                </article>
+
+                <!-- Confession Box - Medium panel -->
+                <article class="grid-panel medium" data-project="confession">
+                    <div class="panel-inner">
+                        <h3>Confession Box</h3>
+                        <p>Camera in photo booth for confessions in disguise.</p>
+                        <span class="panel-caption">before StoryCorps</span>
+                    </div>
+                </article>
+
+                <!-- Art & Audience - Small panel -->
+                <article class="grid-panel small" data-project="artaudience">
+                    <div class="panel-inner">
+                        <h3>Art & Audience</h3>
+                        <p>a video i made while at hampshire about art, audience, public, private, james bond, chicken suits etc.</p>
+                    </div>
+                </article>
+
+                <!-- 253 Film - Small panel -->
+                <article class="grid-panel small" data-project="253film">
+                    <div class="panel-inner">
+                        <h3>253 Film</h3>
+                        <p>Tacoma short films.</p>
+                        <span class="panel-caption">award winning film maker lol</span>
+                    </div>
+                </article>
             </div>
         </section>
     </main>
 
+    <!-- Footer - Simple, centered, unassuming -->
     <footer class="diagram-footer">
         <div class="footer-box">
             <span class="footer-symbol">◆</span>
@@ -242,9 +688,14 @@
         </div>
     </footer>
 
-    <!-- GSAP -->
+    <!-- ====================================================================
+         SCRIPTS
+         GSAP for animations (ScrollTrigger, ScrollTo plugins)
+         main.js for all the interactive chaos
+         ==================================================================== -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

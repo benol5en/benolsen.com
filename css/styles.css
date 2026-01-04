@@ -1,4 +1,18 @@
-/* Muted colors, diagrammatic layouts, hand-drawn typography feel */
+/**
+ * Ben Olsen Portfolio - Styles
+ *
+ * Vintage comic panel aesthetic with muted colors, diagrammatic layouts,
+ * and hand-drawn typography feel. Think old printed comics meets technical
+ * diagrams, with a dash of absurdist humor.
+ *
+ * @author Ben Olsen
+ */
+
+
+/* =============================================================================
+   RESET & CSS CUSTOM PROPERTIES
+   The foundation. Nothing fancy, just making browsers behave.
+   ============================================================================= */
 
 *, *::before, *::after {
     box-sizing: border-box;
@@ -7,25 +21,30 @@
 }
 
 :root {
-    /* Muted, vintage color palette - like old printed comics */
-    --color-cream: #f5f0e6;
-    --color-paper: #e8e0d0;
-    --color-ink: #2a2522;
-    --color-ink-light: #4a4540;
-    --color-rust: #a65d3f;
-    --color-dusty-blue: #6b8a9a;
-    --color-sage: #7a917a;
-    --color-mustard: #c4a24d;
-    --color-faded-red: #b85c5c;
+    /* Color Palette - Muted, vintage, like comics left in the sun */
+    --color-cream: #f5f0e6;      /* Background - aged paper */
+    --color-paper: #e8e0d0;      /* Secondary background */
+    --color-ink: #2a2522;        /* Primary text - not quite black */
+    --color-ink-light: #4a4540;  /* Secondary text */
+    --color-rust: #a65d3f;       /* Accent - warm */
+    --color-dusty-blue: #6b8a9a; /* Accent - cool */
+    --color-sage: #7a917a;       /* Accent - natural */
+    --color-mustard: #c4a24d;    /* Accent - highlight */
+    --color-faded-red: #b85c5c;  /* Accent - error/emphasis */
 
-    /* Typography */
+    /* Typography - A mix of display, body, and mono */
     --font-display: 'Oswald', sans-serif;
     --font-body: 'EB Garamond', Georgia, serif;
     --font-mono: 'Courier Prime', 'Courier New', monospace;
 
-    /* Spacing */
+    /* Spacing & Layout */
     --panel-gap: 12px;
     --border-width: 2px;
+
+    /* Animation Timing */
+    --transition-fast: 0.2s;
+    --transition-medium: 0.3s;
+    --transition-slow: 0.6s;
 }
 
 html {
@@ -35,31 +54,42 @@ html {
 body {
     font-family: var(--font-body);
     background: var(--color-cream);
+    /* Subtle grid pattern - like graph paper that's seen some things */
+    background-image:
+        linear-gradient(rgba(42, 37, 34, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(42, 37, 34, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
     color: var(--color-ink);
     line-height: 1.5;
     font-size: 16px;
+    position: relative;
 }
 
-/* ============================================
+
+/* =============================================================================
    DIAGRAMMATIC NAVIGATION
-   ============================================ */
+   Fixed sidebar nav that appears after scrolling past hero.
+   Collapsible on mobile because thumb real estate is precious.
+   ============================================================================= */
 .diagram-nav {
     position: fixed;
     top: 20px;
     right: 20px;
     z-index: 1000;
-    display: flex;
+    display: none; /* Disabled for now */
     flex-direction: column;
     align-items: flex-end;
     gap: 8px;
     opacity: 0;
-    transform: translateX(20px);
+    transform: translateX(20px) translateZ(0);
     transition: opacity 0.5s, transform 0.5s;
+    will-change: opacity, transform;
+    isolation: isolate;
 }
 
 .diagram-nav.visible {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) translateZ(0);
 }
 
 .nav-box {
@@ -103,6 +133,36 @@ body {
     gap: 6px;
 }
 
+/* Mobile: hide navigation by default */
+@media (max-width: 768px) {
+    .nav-branches {
+        display: none;
+    }
+
+    .nav-branches.active {
+        display: flex;
+    }
+
+    .nav-title {
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .nav-title::after {
+        content: ' ▼';
+        font-size: 8px;
+        opacity: 0.5;
+    }
+
+    .nav-connector {
+        display: none;
+    }
+
+    .nav-connector.active {
+        display: block;
+    }
+}
+
 .nav-link {
     text-decoration: none;
     color: var(--color-ink);
@@ -133,9 +193,12 @@ body {
     font-size: 10px;
 }
 
-/* ============================================
-   HERO PANEL - Dual Box Layout
-   ============================================ */
+/* =============================================================================
+   HERO PANEL
+   The star of the show. Two boxes side by side: identity slot machine on the
+   left, terminal emulator on the right. They split apart on scroll like a
+   dramatic curtain reveal. Also houses Game of Life and scribble backgrounds.
+   ============================================================================= */
 .hero-panel {
     min-height: 100vh;
     display: flex;
@@ -146,6 +209,16 @@ body {
     overflow: hidden;
     background-color: var(--color-paper);
     z-index: 10; /* Above other sections */
+}
+
+#gameOfLife {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.15;
 }
 
 /* Scribble Background - Full Page */
@@ -439,9 +512,11 @@ body {
     }
 }
 
-/* ============================================
+/* =============================================================================
    SECTION HEADERS
-   ============================================ */
+   Each content section gets a header with section number and title.
+   They slide in from the left on scroll for that extra bit of flair.
+   ============================================================================= */
 .panel-section {
     padding: 80px 40px;
     max-width: 1200px;
@@ -501,9 +576,12 @@ body {
     opacity: 0.3;
 }
 
-/* ============================================
+/* =============================================================================
    COMIC GRID - Panel Layout
-   ============================================ */
+   A 6-column responsive grid that holds the content panels.
+   Panels can span multiple columns/rows for visual hierarchy.
+   Think newspaper layout meets comic book meets technical diagram.
+   ============================================================================= */
 .comic-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
@@ -709,30 +787,94 @@ body {
     opacity: 0.7;
 }
 
-/* ============================================
+/* Section Title Panel - Large title panels with timeline */
+.section-title-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 20px;
+}
+
+.title-content {
+    flex: 1;
+}
+
+.section-title-panel .section-number {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    opacity: 0.5;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.section-title-panel h2 {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0 0 8px 0;
+    line-height: 1;
+}
+
+.section-title-panel .section-subtitle {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.6;
+}
+
+.title-illustration {
+    width: 280px;
+    height: 120px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border: 2px solid var(--color-ink);
+}
+
+.title-illustration img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+}
+
+/* Music illustration - zoom in on record player */
+.music-illustration img {
+    object-position: 50% center;
+    transform: scale(1.8);
+}
+
+/* Art illustration - zoom in to remove borders */
+.art-illustration img {
+    object-position: 50% center;
+    transform: scale(1.5);
+}
+
+/* Video illustration - zoom in to remove borders */
+.video-illustration img {
+    object-position: 50% center;
+    transform: scale(1.8);
+}
+
+/* Computer illustration - zoom in more to hide bottom text */
+.computer-illustration img {
+    object-position: 50% 40%;
+    transform: scale(1.6);
+}
+
+/* Public Art illustration - zoom in to remove borders */
+.publicart-illustration img {
+    object-position: 50% center;
+    transform: scale(1.8);
+}
+
+/* =============================================================================
    ABOUT SECTION
-   ============================================ */
-#about {
-    background: var(--color-cream);
-}
-
-.about-diagram {
-    max-width: 400px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.about-box {
-    border: var(--border-width) solid var(--color-ink);
-    padding: 40px;
-    background-color: var(--color-cream);
-    position: relative;
-    z-index: 2;
-}
-
-.diagram-connectors {
-    padding-top: 20px;
-}
+   Special styling for the about/timeline section with its connector diagram.
+   ============================================================================= */
 
 .connector-line {
     width: 1px;
@@ -760,9 +902,10 @@ body {
     opacity: 0.9;
 }
 
-/* ============================================
+/* =============================================================================
    FOOTER
-   ============================================ */
+   Simple, centered, unassuming. Just the name and some decorative diamonds.
+   ============================================================================= */
 .diagram-footer {
     padding: 60px 40px;
     text-align: center;
@@ -785,9 +928,11 @@ body {
     opacity: 0.3;
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
+/* =============================================================================
+   RESPONSIVE BREAKPOINTS
+   Desktop: 6-column grid | Tablet (≤900px): 4-column | Mobile (≤600px): 2-column
+   Because not everyone has a 27" monitor (but they should).
+   ============================================================================= */
 @media (max-width: 900px) {
     .comic-grid {
         grid-template-columns: repeat(4, 1fr);
@@ -847,9 +992,11 @@ body {
     }
 }
 
-/* ============================================
+/* =============================================================================
    SCROLL ANIMATIONS
-   ============================================ */
+   Initial states for elements that animate in on scroll.
+   The JavaScript (via GSAP ScrollTrigger) handles the actual animation.
+   ============================================================================= */
 .section-header {
     opacity: 0;
     transform: translateX(-20px);

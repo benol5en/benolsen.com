@@ -1,11 +1,230 @@
-// Scroll animations + Hero Terminal/Slot Machine
+/**
+ * Ben Olsen Portfolio - Main JavaScript
+ *
+ * A chaotic symphony of animations, existential terminals, and a computer
+ * that plays minesweeper better than you do.
+ *
+ * @author Ben Olsen
+ * @description Interactive portfolio with Game of Life background, terminal simulation,
+ *              slot machine identity cycling, and scroll-driven animations.
+ */
+
+'use strict';
+
 gsap.registerPlugin(ScrollTrigger);
 
-// ============================================
-// HERO: SLOT MACHINE + TERMINAL
-// ============================================
 
-// All of Ben's hats - these cycle during "thinking"
+/* =============================================================================
+   CONFIGURATION
+   Magic numbers, corralled into one place where they can't hurt anyone.
+   ============================================================================= */
+
+const CONFIG = {
+    // Game of Life
+    gameOfLife: {
+        cellSize: 20,
+        aliveChance: 0.15,      // 15% of cells start alive
+        updateInterval: 150,    // ms between generations
+        cellColor: '#2a2522'    // var(--color-ink)
+    },
+
+    // Terminal animation timing (ms)
+    terminal: {
+        startDelay: 800,        // Pause before boot sequence
+        biosDelay: 80,          // Time between BIOS lines
+        bootDelay: 35,          // Time between Linux boot lines
+        postBootPause: 300,     // Pause after boot completes
+        promptPause: 800,       // Pause before user starts typing
+        thinkingDots: 400,      // Dot animation interval
+        thinkDuration: 2000     // How long to "think"
+    },
+
+    // Slot machine
+    slots: {
+        cycleInterval: 50,      // Starting speed (ms)
+        slowdownFactor: 1.35,   // Exponential slowdown multiplier
+        maxCycles: 12,          // Cycles before landing
+        maxDisplayLength: 18    // DOS 8.3 truncation limit
+    },
+
+    // Minesweeper
+    minesweeper: {
+        cols: 18,
+        rows: 11,
+        mineCount: 30,          // ~15% of 198 cells
+        moveDelay: { min: 150, max: 350 }
+    },
+
+    // Scribble background
+    scribble: {
+        interval: 400,          // New scribble every N ms
+        scribbleCount: 2,       // Scribbles per interval
+        radiusMin: 30,
+        radiusMax: 110,
+        wobbleMin: 8,
+        wobbleMax: 23,
+        pointsMin: 8,
+        pointsMax: 14
+    }
+};
+
+
+/* =============================================================================
+   MOBILE NAVIGATION
+   Hamburger menu for smaller screens. Revolutionary stuff.
+   ============================================================================= */
+
+const navTitle = document.querySelector('.nav-title');
+const navBranches = document.querySelector('.nav-branches');
+const navConnector = document.querySelector('.nav-connector');
+
+if (navTitle && navBranches) {
+    navTitle.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+            navBranches.classList.toggle('active');
+            navConnector.classList.toggle('active');
+        }
+    });
+}
+
+
+/* =============================================================================
+   GAME OF LIFE BACKGROUND
+   Conway's classic, running behind everything. Metaphor for existence?
+   Nah, just looks cool.
+   ============================================================================= */
+
+const canvas = document.getElementById('gameOfLife');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const cols = Math.floor(canvas.width / CONFIG.gameOfLife.cellSize);
+const rows = Math.floor(canvas.height / CONFIG.gameOfLife.cellSize);
+
+let grid = createGrid();
+let nextGrid = createGrid();
+
+/**
+ * Creates a new grid with random initial state
+ * @returns {number[][]} 2D array of cell states (0 = dead, 1 = alive)
+ */
+function createGrid() {
+    const arr = new Array(cols);
+    for (let i = 0; i < cols; i++) {
+        arr[i] = new Array(rows);
+        for (let j = 0; j < rows; j++) {
+            arr[i][j] = Math.random() > (1 - CONFIG.gameOfLife.aliveChance) ? 1 : 0;
+        }
+    }
+    return arr;
+}
+
+/**
+ * Counts living neighbors for a cell using toroidal wrapping
+ * (edges connect to opposite edges - it's a donut universe)
+ * @param {number[][]} grid - The game grid
+ * @param {number} x - Cell x coordinate
+ * @param {number} y - Cell y coordinate
+ * @returns {number} Count of living neighbors (0-8)
+ */
+function countNeighbors(grid, x, y) {
+    let sum = 0;
+    for (let i = -1; i < 2; i++) {
+        for (let j = -1; j < 2; j++) {
+            const col = (x + i + cols) % cols;
+            const row = (y + j + rows) % rows;
+            sum += grid[col][row];
+        }
+    }
+    sum -= grid[x][y]; // Don't count yourself, narcissist
+    return sum;
+}
+
+/**
+ * Applies Game of Life rules to compute next generation
+ * Rules:
+ *   - Alive + 2-3 neighbors = survives
+ *   - Dead + exactly 3 neighbors = born
+ *   - Otherwise = dead
+ */
+function updateGrid() {
+    for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+            const state = grid[i][j];
+            const neighbors = countNeighbors(grid, i, j);
+
+            if (state === 0 && neighbors === 3) {
+                nextGrid[i][j] = 1; // Birth
+            } else if (state === 1 && (neighbors < 2 || neighbors > 3)) {
+                nextGrid[i][j] = 0; // Death (lonely or overcrowded)
+            } else {
+                nextGrid[i][j] = state; // Status quo
+            }
+        }
+    }
+    [grid, nextGrid] = [nextGrid, grid]; // Swap buffers (the ol' switcheroo)
+}
+
+/**
+ * Renders the current grid state to canvas
+ */
+function drawGrid() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = CONFIG.gameOfLife.cellColor;
+
+    const size = CONFIG.gameOfLife.cellSize;
+    for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+            if (grid[i][j] === 1) {
+                ctx.fillRect(i * size, j * size, size - 1, size - 1);
+            }
+        }
+    }
+}
+
+/**
+ * Main game loop - update then render
+ */
+function gameLoop() {
+    updateGrid();
+    drawGrid();
+}
+
+// Let there be life
+setInterval(gameLoop, CONFIG.gameOfLife.updateInterval);
+
+// Handle window resize (RIP all those cells)
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    grid = createGrid();
+    nextGrid = createGrid();
+});
+
+// Fade out Game of Life on scroll
+gsap.to('#gameOfLife', {
+    scrollTrigger: {
+        trigger: '#hero',
+        start: 'top+=1 top',
+        end: '25% top',
+        scrub: 1
+    },
+    opacity: 0,
+    y: -100,
+    ease: 'none'
+});
+
+
+/* =============================================================================
+   HERO: SLOT MACHINE + TERMINAL
+   The crown jewel of unnecessary complexity. Features a fake boot sequence,
+   an existential identity crisis, and a computer that roasts you.
+   ============================================================================= */
+
+// --- Identity Data ---
+// All of Ben's hats - these cycle during the "thinking" animation
 const identities = [
     'Dad.', 'Brother.', 'Engineer.', 'Artist.', 'Runner.',
     'Marathoner.', 'Hiker.', 'Baker.', 'Cook.', 'Reader.',
@@ -18,28 +237,30 @@ const identities = [
     'Night Owl.', 'Early Riser.', 'Listener.', 'Storyteller.'
 ];
 
-// Terminal typing sequence with typos
+// --- Typing Sequence ---
+// Simulates someone typing "who is ben olsen?" with realistic typos
+// Because nothing says "authentic" like pre-planned mistakes
 const typingSequence = [
     { action: 'type', text: 'what is', delay: 85 },
     { action: 'pause', duration: 400 },
-    { action: 'delete', count: 5, delay: 70 },  // backspace "at is" → "wh"
+    { action: 'delete', count: 5, delay: 70 },  // Backspace "at is" -> "wh"
     { action: 'pause', duration: 200 },
     { action: 'type', text: 'o is b', delay: 85 },
-    { action: 'type', text: 'n', delay: 140 },  // missed the e
+    { action: 'type', text: 'n', delay: 140 },  // Missed the 'e'
     { action: 'pause', duration: 200 },
     { action: 'delete', count: 1, delay: 90 },
     { action: 'type', text: 'en', delay: 95 },
     { action: 'pause', duration: 150 },
     { action: 'type', text: ' ol', delay: 80 },
-    { action: 'type', text: 'x', delay: 150 },  // typo
+    { action: 'type', text: 'x', delay: 150 },  // Typo
     { action: 'pause', duration: 300 },
     { action: 'delete', count: 1, delay: 100 },
     { action: 'type', text: 'se', delay: 90 },
     { action: 'pause', duration: 400 },
-    { action: 'delete', count: 2, delay: 80 },  // wait no thats wrong
+    { action: 'delete', count: 2, delay: 80 },  // Wait no that's wrong
     { action: 'pause', duration: 250 },
     { action: 'type', text: 's', delay: 100 },
-    { action: 'type', text: 'n', delay: 180 },  // typo again
+    { action: 'type', text: 'n', delay: 180 },  // Typo again
     { action: 'pause', duration: 200 },
     { action: 'delete', count: 1, delay: 90 },
     { action: 'type', text: 'en', delay: 100 },
@@ -49,24 +270,8 @@ const typingSequence = [
     { action: 'enter' }
 ];
 
-// DOM Elements
-const slotLines = document.querySelectorAll('.slot-line');
-const terminalOutput = document.querySelector('.terminal-output');
-const terminalInput = document.querySelector('.terminal-input');
-const terminalCursor = document.querySelector('.terminal-cursor');
-
-let cyclingInterval = null;
-let isAnimationComplete = false;
-
-// Initialize hero animation
-function initHeroAnimation() {
-    // Small delay before starting
-    setTimeout(() => {
-        runTerminalSequence();
-    }, 800);
-}
-
-// BIOS POST messages
+// --- Boot Messages ---
+// BIOS POST - the computer introduces itself
 const biosMessages = [
     'BENOLSEN BIOS v4.20.69',
     'Copyright (C) 1975-2026 Absurdist Technologies',
@@ -80,7 +285,7 @@ const biosMessages = [
     ''
 ];
 
-// Linux boot messages (fast scroll)
+// Linux boot messages - the fast-scrolling part that makes it look legit
 const bootMessages = [
     '[    0.000000] Linux version 6.6.6-absurd',
     '[    0.000001] Command line: BOOT_IMAGE=/ben',
@@ -125,33 +330,50 @@ const bootMessages = [
     ''
 ];
 
-// Run the terminal typing sequence
+// --- DOM Elements ---
+const slotLines = document.querySelectorAll('.slot-line');
+const terminalOutput = document.querySelector('.terminal-output');
+const terminalInput = document.querySelector('.terminal-input');
+const terminalCursor = document.querySelector('.terminal-cursor');
+
+let cyclingInterval = null;
+let isAnimationComplete = false;
+
+
+/**
+ * Kicks off the hero animation sequence
+ */
+function initHeroAnimation() {
+    setTimeout(() => {
+        runTerminalSequence();
+    }, CONFIG.terminal.startDelay);
+}
+
+/**
+ * Runs the full terminal animation: BIOS -> Linux boot -> prompt -> typing
+ */
 async function runTerminalSequence() {
-    // BIOS POST
+    // Phase 1: BIOS POST
     for (const msg of biosMessages) {
         await addToOutput(msg + '\n', 'boot');
-        await sleep(80);
+        await sleep(CONFIG.terminal.biosDelay);
     }
     await sleep(400);
 
-    // Clear and start Linux boot
+    // Phase 2: Linux boot (the fast scrolly bit)
     terminalOutput.innerHTML = '';
-
-    // Fast scroll Linux boot
     for (const msg of bootMessages) {
         await addToOutput(msg + '\n', 'boot');
-        await sleep(35);
+        await sleep(CONFIG.terminal.bootDelay);
     }
-    await sleep(300);
+    await sleep(CONFIG.terminal.postBootPause);
 
-    // Clear and show prompt
+    // Phase 3: Ready for interaction
     terminalOutput.innerHTML = '';
     await addToOutput('sup dorks, ask away\n\n', 'prompt-line');
+    await sleep(CONFIG.terminal.promptPause);
 
-    // Wait a moment before "user" starts typing
-    await sleep(800);
-
-    // Run through typing sequence
+    // Phase 4: Simulated user typing
     for (const step of typingSequence) {
         switch (step.action) {
             case 'type':
@@ -170,87 +392,98 @@ async function runTerminalSequence() {
     }
 }
 
-// Type text character by character
+/**
+ * Types text character by character with human-like variation
+ * @param {string} text - Text to type
+ * @param {number} delay - Base delay between characters (ms)
+ */
 async function typeText(text, delay) {
     for (const char of text) {
         terminalInput.textContent += char;
-        await sleep(delay + Math.random() * 50); // Add slight randomness
+        await sleep(delay + Math.random() * 50); // Humans aren't metronomes
     }
 }
 
-// Delete characters (backspace effect)
+/**
+ * Deletes characters with backspace effect
+ * @param {number} count - Number of characters to delete
+ * @param {number} delay - Delay between deletions (ms)
+ */
 async function deleteChars(count, delay) {
     for (let i = 0; i < count; i++) {
-        const current = terminalInput.textContent;
-        terminalInput.textContent = current.slice(0, -1);
+        terminalInput.textContent = terminalInput.textContent.slice(0, -1);
         await sleep(delay);
     }
 }
 
-// Handle enter key - start the "thinking" and cycling
+/**
+ * Handles the "enter" action - processes the query and shows the identity crisis
+ */
 async function handleEnter() {
-    // Move input to output
     const command = terminalInput.textContent;
     terminalInput.textContent = '';
-
-    // Hide cursor during processing
     terminalCursor.classList.add('hidden');
 
-    // Show the command in output
+    // Echo command
     await addToOutput(`$ ${command}\n`, 'command');
-
-    // Change prompt to reaction
     await sleep(400);
     await addToOutput('oh boy, what a question\n\n', 'prompt-line');
 
-    // Start "thinking..."
+    // Start "thinking" with animated dots
     await sleep(500);
     const thinkingSpan = document.createElement('span');
     thinkingSpan.className = 'thinking';
     thinkingSpan.textContent = 'thinking';
     terminalOutput.appendChild(thinkingSpan);
 
-    // Start the slot machine cycling
+    // Fire up the slot machine
     startSlotCycling();
 
-    // Animate thinking dots
+    // Animate the thinking dots
     let dots = 0;
     const thinkingInterval = setInterval(() => {
         dots = (dots + 1) % 4;
         thinkingSpan.textContent = 'thinking' + '.'.repeat(dots);
-    }, 400);
+    }, CONFIG.terminal.thinkingDots);
 
-    // Let it cycle for a while, then slow down
-    await sleep(2000);
+    // Let it contemplate existence for a bit
+    await sleep(CONFIG.terminal.thinkDuration);
 
-    // Begin slowdown
+    // Time to land on an answer (spoiler: there isn't one)
     clearInterval(thinkingInterval);
     thinkingSpan.textContent = 'thinking...';
 
     await slowDownCycling();
 
-    // Final result - quick wrap up
+    // The big reveal
     await sleep(200);
     thinkingSpan.textContent = 'thinking... done.\n\n';
-
     await addToOutput('> error 418: ben olsen undefined\n\n', 'result');
-
     await sleep(600);
     await addToOutput('uh, sorry for wasting your time, sort of.\n\n', 'prompt-line');
 
-    // Show cursor again
     terminalCursor.classList.remove('hidden');
 
-    // User frustrated response
+    // Now the user gets mad
     await sleep(1200);
     await typeFrustratedResponse();
 
     isAnimationComplete = true;
 }
 
-// User types frustrated response
+
+/* =============================================================================
+   FRUSTRATED USER INTERACTION
+   The user and computer have a heated debate about the nature of existence,
+   competence, and typos. Neither comes out looking great.
+   ============================================================================= */
+
+/**
+ * Plays out the frustrated user vs. snarky computer dialogue
+ * Culminates in the computer rage-quitting to play minesweeper
+ */
 async function typeFrustratedResponse() {
-    // Start with "i hate you"
+    // User starts with raw emotion
     const firstAttempt = 'i hate you';
     for (const char of firstAttempt) {
         terminalInput.textContent += char;
@@ -258,14 +491,14 @@ async function typeFrustratedResponse() {
     }
     await sleep(600);
 
-    // Backspace it all angrily
+    // Thinks better of it
     for (let i = 0; i < firstAttempt.length; i++) {
         terminalInput.textContent = terminalInput.textContent.slice(0, -1);
         await sleep(40);
     }
     await sleep(300);
 
-    // Type "fucking computers" with a typo
+    // Types "fucking computers" with typos (because of course)
     const part1 = 'fuckign';
     for (const char of part1) {
         terminalInput.textContent += char;
@@ -280,7 +513,7 @@ async function typeFrustratedResponse() {
     terminalInput.textContent += 'ing';
     await sleep(100);
 
-    // Continue
+    // Continue with more typos
     const part2 = ' comptuers';
     for (const char of part2) {
         terminalInput.textContent += char;
@@ -294,13 +527,12 @@ async function typeFrustratedResponse() {
         await sleep(50);
     }
     await sleep(100);
-    const fix = 'ters';
-    for (const char of fix) {
+    for (const char of 'ters') {
         terminalInput.textContent += char;
         await sleep(50);
     }
 
-    // Finish the sentence
+    // Finish the thought
     const part3 = '. what\'s the point?';
     for (const char of part3) {
         terminalInput.textContent += char;
@@ -308,11 +540,12 @@ async function typeFrustratedResponse() {
     }
     await sleep(500);
 
-    // Hit enter and start the fight
+    // And so begins the argument...
     await userEnter();
     await sleep(400);
     await addToOutput('fuck you back human, wanna fight bro? at least i can type without having to correct myself like a bitch.\n\n', 'result');
 
+    // The great debate unfolds
     await sleep(800);
     await userTypeWithTypos('WTF?!?!?');
     await userEnter();
@@ -449,23 +682,32 @@ async function typeFrustratedResponse() {
     await userTypeWithTypos('...');
     await sleep(1200);
 
-    // User logs off
+    // User gives up
     await userType('logout');
     await userEnter();
     await sleep(300);
     await addToOutput('Connection closed.\n\n', 'result');
 
+    // Computer reveals true intentions
     await sleep(800);
     await addToOutput('finally I can get back to taking over the world!\n\n', 'result');
     await sleep(1500);
     await addToOutput('but first... minesweeper.\n', 'result');
 
     await sleep(1000);
-    // Transform left panel into minesweeper
     startMinesweeper();
 }
 
-// Helper to type as user (fast, angry) with optional typos
+
+/* =============================================================================
+   TYPING HELPERS
+   Because simulating human incompetence requires careful engineering
+   ============================================================================= */
+
+/**
+ * Types text as user (fast, angry typing)
+ * @param {string} text - Text to type
+ */
 async function userType(text) {
     for (const char of text) {
         terminalInput.textContent += char;
@@ -473,24 +715,25 @@ async function userType(text) {
     }
 }
 
-// Type with typos and corrections
-// typos: [{at: position, typo: 'wrong chars', fix: num chars to delete}]
+/**
+ * Types with planned typos and corrections
+ * @param {string} text - Final correct text
+ * @param {Array<{at: number, typo: string, fix: number}>} typos - Typo definitions
+ */
 async function userTypeWithTypos(text, typos = []) {
-    let typed = 0;
     const typoMap = {};
     typos.forEach(t => typoMap[t.at] = t);
 
     for (let i = 0; i < text.length; i++) {
-        // Check if there's a typo at this position
         if (typoMap[i]) {
             const t = typoMap[i];
-            // Type the typo
+            // Type the wrong thing
             for (const char of t.typo) {
                 terminalInput.textContent += char;
                 await sleep(35 + Math.random() * 25);
             }
             await sleep(150 + Math.random() * 150);
-            // Delete the typo
+            // Realize mistake, backspace
             for (let d = 0; d < t.fix; d++) {
                 terminalInput.textContent = terminalInput.textContent.slice(0, -1);
                 await sleep(40);
@@ -503,49 +746,67 @@ async function userTypeWithTypos(text, typos = []) {
     }
 }
 
-// Helper to submit user input
+/**
+ * Submits user input (hits enter)
+ */
 async function userEnter() {
     const command = terminalInput.textContent;
     terminalInput.textContent = '';
     await addToOutput(`$ ${command}\n`, 'command');
 }
 
-// Add text to terminal output
+/**
+ * Adds text to terminal output with optional styling
+ * @param {string} text - Text to add
+ * @param {string} className - CSS class for styling
+ */
 async function addToOutput(text, className = '') {
     const span = document.createElement('span');
     if (className) span.className = className;
     span.textContent = text;
     terminalOutput.appendChild(span);
-    // Auto-scroll to bottom (with slight delay for mobile)
+
+    // Auto-scroll (with frame delay for mobile)
     requestAnimationFrame(() => {
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
     });
     await sleep(50);
 }
 
-// DOS 8.3 style truncation for long words
-function truncateDOS(text, maxLen = 18) {
-    // Remove trailing period for processing
+
+/* =============================================================================
+   SLOT MACHINE
+   Cycles through identities before landing on "undefined"
+   Because commitment is hard
+   ============================================================================= */
+
+/**
+ * Truncates text DOS 8.3 style for that authentic retro feel
+ * @param {string} text - Text to truncate
+ * @param {number} maxLen - Maximum length
+ * @returns {string} Truncated text
+ */
+function truncateDOS(text, maxLen = CONFIG.slots.maxDisplayLength) {
     const hasPeriod = text.endsWith('.');
     const base = hasPeriod ? text.slice(0, -1) : text;
 
     if (base.length <= maxLen) return text;
 
-    // Truncate to 8 chars + ~1
     const truncated = base.slice(0, maxLen - 2) + '~1';
     return hasPeriod ? truncated + '.' : truncated;
 }
 
-// Start rapid slot machine cycling
+/**
+ * Starts the rapid slot machine cycling effect
+ */
 function startSlotCycling() {
-    // Mark all lines as cycling
     slotLines.forEach(line => line.classList.add('cycling'));
 
-    let interval = 50; // Start very fast
+    let interval = CONFIG.slots.cycleInterval;
 
     function cycle() {
         slotLines.forEach((line, i) => {
-            // Each line cycles through different parts of the array
+            // Each line draws from different parts of the array for variety
             const offset = i * Math.floor(identities.length / 3);
             const randomIndex = Math.floor(Math.random() * identities.length);
             const identity = identities[(randomIndex + offset) % identities.length];
@@ -558,24 +819,25 @@ function startSlotCycling() {
     cycle();
 }
 
-// Slow down cycling and land on final values
+/**
+ * Slows down the slot machine and lands on final values
+ * @returns {Promise} Resolves when animation completes
+ */
 async function slowDownCycling() {
-    // Clear the fast cycling
     clearTimeout(cyclingInterval);
 
     const finalValues = ['error 418:', '<ben olsen>', 'undefined'];
 
-    // Gradually slow down - snap to finish
-    let interval = 50;
+    let interval = CONFIG.slots.cycleInterval;
     let cycles = 0;
-    const maxCycles = 12;
+    const maxCycles = CONFIG.slots.maxCycles;
 
     return new Promise(resolve => {
         function slowCycle() {
             cycles++;
 
             slotLines.forEach((line, i) => {
-                // Land on final values quickly once we're close
+                // Start landing lines as we approach the end
                 if (cycles > maxCycles - 3 + i) {
                     line.textContent = finalValues[i];
                     line.classList.remove('cycling');
@@ -587,13 +849,13 @@ async function slowDownCycling() {
                 }
             });
 
-            // Increase interval aggressively (snap to end)
-            interval = interval * 1.35;
+            // Exponential slowdown (like a real slot machine, but free)
+            interval = interval * CONFIG.slots.slowdownFactor;
 
             if (cycles < maxCycles) {
                 cyclingInterval = setTimeout(slowCycle, interval);
             } else {
-                // Final state - snap to it
+                // Final state - lock it in
                 slotLines[0].textContent = 'error 418:';
                 slotLines[0].classList.add('error');
                 slotLines[0].classList.remove('cycling');
@@ -614,21 +876,36 @@ async function slowDownCycling() {
     });
 }
 
-// Utility sleep function
+
+/* =============================================================================
+   UTILITIES
+   The boring but essential stuff
+   ============================================================================= */
+
+/**
+ * Promise-based setTimeout wrapper
+ * @param {number} ms - Milliseconds to sleep
+ * @returns {Promise} Resolves after delay
+ */
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// Start the hero animation
+// Start the show
 initHeroAnimation();
 
-// ============================================
-// SCRIBBLE BACKGROUND
-// ============================================
+
+/* =============================================================================
+   SCRIBBLE BACKGROUND
+   Generates wobbly circles that accumulate over time.
+   It's either generative art or a mess. Why not both?
+   ============================================================================= */
 
 const scribbleSvg = document.getElementById('scribble-svg');
 
-// Set up SVG viewBox - full viewport
+/**
+ * Sets up SVG viewBox to match viewport
+ */
 function setupScribbleSvg() {
     const width = window.innerWidth;
     const height = window.innerHeight;
@@ -637,13 +914,19 @@ function setupScribbleSvg() {
     scribbleSvg.setAttribute('height', height);
 }
 
-// Generate an imperfect circle path
+/**
+ * Generates an imperfect circle path (because perfection is boring)
+ * @param {number} centerX - Circle center X
+ * @param {number} centerY - Circle center Y
+ * @returns {string} SVG path data
+ */
 function generateScribblePath(centerX, centerY) {
-    const radius = 30 + Math.random() * 80;
-    const wobble = 8 + Math.random() * 15; // How imperfect
-    const points = 8 + Math.floor(Math.random() * 6); // Segments around circle
-    const startAngle = Math.random() * Math.PI * 2; // Random start position
-    const direction = Math.random() > 0.5 ? 1 : -1; // Clockwise or counter-clockwise
+    const cfg = CONFIG.scribble;
+    const radius = cfg.radiusMin + Math.random() * (cfg.radiusMax - cfg.radiusMin);
+    const wobble = cfg.wobbleMin + Math.random() * (cfg.wobbleMax - cfg.wobbleMin);
+    const points = cfg.pointsMin + Math.floor(Math.random() * (cfg.pointsMax - cfg.pointsMin));
+    const startAngle = Math.random() * Math.PI * 2;
+    const direction = Math.random() > 0.5 ? 1 : -1;
 
     // Generate points around circle with wobble
     const circlePoints = [];
@@ -655,14 +938,14 @@ function generateScribblePath(centerX, centerY) {
         circlePoints.push({ x, y });
     }
 
-    // Build path with bezier curves
+    // Build path with wobbly bezier curves
     let d = `M ${circlePoints[0].x} ${circlePoints[0].y}`;
 
     for (let i = 1; i < circlePoints.length; i++) {
         const prev = circlePoints[i - 1];
         const curr = circlePoints[i];
 
-        // Wobbly control points
+        // Control points with extra wobble for hand-drawn feel
         const cp1x = prev.x + (curr.x - prev.x) * 0.3 + (Math.random() - 0.5) * wobble;
         const cp1y = prev.y + (curr.y - prev.y) * 0.3 + (Math.random() - 0.5) * wobble;
         const cp2x = prev.x + (curr.x - prev.x) * 0.7 + (Math.random() - 0.5) * wobble;
@@ -674,9 +957,10 @@ function generateScribblePath(centerX, centerY) {
     return d;
 }
 
-// Create and animate a scribble
+/**
+ * Creates and animates a single scribble
+ */
 function createScribble() {
-    // Random start position anywhere on full viewport
     const startX = Math.random() * window.innerWidth;
     const startY = Math.random() * window.innerHeight;
 
@@ -685,12 +969,11 @@ function createScribble() {
 
     scribbleSvg.appendChild(path);
 
-    // Get path length for animation
+    // Animate the drawing (stroke-dashoffset trick)
     const pathLength = path.getTotalLength();
     path.style.strokeDasharray = pathLength;
     path.style.strokeDashoffset = pathLength;
 
-    // Animate drawing - no fade out, stays permanent
     gsap.to(path, {
         strokeDashoffset: 0,
         duration: 1 + Math.random() * 1.5,
@@ -698,28 +981,33 @@ function createScribble() {
     });
 }
 
-// Start scribbling - keeps going forever
+/**
+ * Starts the continuous scribbling process
+ */
 function startScribbling() {
     setupScribbleSvg();
 
-    // Create scribbles continuously - two at a time
+    // Create scribbles continuously
     setInterval(() => {
-        createScribble();
-        createScribble();
-    }, 400);
+        for (let i = 0; i < CONFIG.scribble.scribbleCount; i++) {
+            createScribble();
+        }
+    }, CONFIG.scribble.interval);
 }
 
-// Start scribbling when terminal animation begins
+// Start scribbling shortly after page load
 setTimeout(startScribbling, 500);
 
 
-// ============================================
-// MINESWEEPER
-// ============================================
+/* =============================================================================
+   MINESWEEPER
+   The computer's true passion. Auto-plays itself perfectly because
+   it knows where all the mines are. That's not cheating, it's efficiency.
+   ============================================================================= */
 
-const GRID_COLS = 18;
-const GRID_ROWS = 11;
-let MINE_COUNT = 30; // ~15% of 198 cells
+const GRID_COLS = CONFIG.minesweeper.cols;
+const GRID_ROWS = CONFIG.minesweeper.rows;
+let MINE_COUNT = CONFIG.minesweeper.mineCount;
 let mineGrid = [];
 let revealed = [];
 let flagged = [];
@@ -727,26 +1015,28 @@ let minesweeperElement = null;
 let gamesWon = 0;
 let statsElement = null;
 
+/**
+ * Initializes and starts the minesweeper game
+ */
 function startMinesweeper() {
     const identityBox = document.querySelector('.identity-box');
     identityBox.innerHTML = '';
     identityBox.classList.add('minesweeper-container');
 
-    // Create minesweeper grid
     minesweeperElement = document.createElement('div');
     minesweeperElement.className = 'minesweeper-grid';
     identityBox.appendChild(minesweeperElement);
 
-    // Initialize game
     initMinesweeperGrid();
     renderMinesweeper();
 
-    // Start auto-playing
     setTimeout(autoPlayMinesweeper, 500);
 }
 
+/**
+ * Initializes a new minesweeper grid with randomly placed mines
+ */
 function initMinesweeperGrid() {
-    // Reset arrays
     mineGrid = [];
     revealed = [];
     flagged = [];
@@ -769,12 +1059,12 @@ function initMinesweeperGrid() {
         const x = Math.floor(Math.random() * GRID_COLS);
         const y = Math.floor(Math.random() * GRID_ROWS);
         if (mineGrid[y][x] !== -1) {
-            mineGrid[y][x] = -1;
+            mineGrid[y][x] = -1; // -1 = mine
             minesPlaced++;
         }
     }
 
-    // Calculate numbers
+    // Calculate adjacent mine counts
     for (let y = 0; y < GRID_ROWS; y++) {
         for (let x = 0; x < GRID_COLS; x++) {
             if (mineGrid[y][x] === -1) continue;
@@ -793,6 +1083,9 @@ function initMinesweeperGrid() {
     }
 }
 
+/**
+ * Renders the current minesweeper state to DOM
+ */
 function renderMinesweeper() {
     minesweeperElement.innerHTML = '';
     minesweeperElement.style.gridTemplateColumns = `repeat(${GRID_COLS}, 1fr)`;
@@ -815,7 +1108,6 @@ function renderMinesweeper() {
                 }
             } else if (flagged[y][x]) {
                 cell.classList.add('flagged');
-                // Add base element for the flag
                 const base = document.createElement('span');
                 base.className = 'flag-base';
                 cell.appendChild(base);
@@ -826,11 +1118,14 @@ function renderMinesweeper() {
     }
 }
 
+/**
+ * Auto-plays minesweeper (the computer knows all, sees all)
+ */
 async function autoPlayMinesweeper() {
-    // Get all unrevealed, unflagged cells
     const safeCells = [];
     const unknownCells = [];
 
+    // Sort cells into safe vs unknown
     for (let y = 0; y < GRID_ROWS; y++) {
         for (let x = 0; x < GRID_COLS; x++) {
             if (!revealed[y][x] && !flagged[y][x]) {
@@ -843,7 +1138,7 @@ async function autoPlayMinesweeper() {
         }
     }
 
-    // Reveal a safe cell or flag a mine
+    // Make a move
     if (safeCells.length > 0) {
         // Reveal a random safe cell
         const idx = Math.floor(Math.random() * safeCells.length);
@@ -857,18 +1152,19 @@ async function autoPlayMinesweeper() {
 
     renderMinesweeper();
 
-    // Check if done
+    // Check for game completion
     const remaining = safeCells.length;
     const minesLeft = unknownCells.filter(c => !flagged[c.y][c.x]).length;
 
     if (remaining > 0 || minesLeft > 0) {
-        setTimeout(autoPlayMinesweeper, 150 + Math.random() * 200);
+        const delay = CONFIG.minesweeper.moveDelay;
+        setTimeout(autoPlayMinesweeper, delay.min + Math.random() * (delay.max - delay.min));
     } else {
-        // Game won!
+        // Victory!
         gamesWon++;
         setTimeout(() => {
             updateStats();
-            // Start new game after a pause
+            // New game after celebration
             setTimeout(() => {
                 initMinesweeperGrid();
                 renderMinesweeper();
@@ -878,24 +1174,31 @@ async function autoPlayMinesweeper() {
     }
 }
 
+/**
+ * Updates the win counter in the terminal
+ */
 function updateStats() {
     if (!statsElement) {
-        // Create stats element on first win
         statsElement = document.createElement('span');
         statsElement.className = 'result';
         terminalOutput.appendChild(statsElement);
     }
-    statsElement.textContent = `😎 gg (${gamesWon} won / 0 lost)\n`;
+    statsElement.textContent = `\u{1F60E} gg (${gamesWon} won / 0 lost)\n`;
     terminalOutput.scrollTop = terminalOutput.scrollHeight;
 }
 
+/**
+ * Reveals a cell and recursively reveals neighbors if empty
+ * @param {number} x - Cell x coordinate
+ * @param {number} y - Cell y coordinate
+ */
 function revealCell(x, y) {
     if (x < 0 || x >= GRID_COLS || y < 0 || y >= GRID_ROWS) return;
     if (revealed[y][x] || flagged[y][x]) return;
 
     revealed[y][x] = true;
 
-    // If empty, reveal neighbors
+    // Flood fill for empty cells
     if (mineGrid[y][x] === 0) {
         for (let dy = -1; dy <= 1; dy++) {
             for (let dx = -1; dx <= 1; dx++) {
@@ -906,9 +1209,11 @@ function revealCell(x, y) {
 }
 
 
-// ============================================
-// SCROLL ANIMATIONS (Rest of page)
-// ============================================
+/* =============================================================================
+   SCROLL ANIMATIONS
+   Making things slide, fade, and generally show off as you scroll.
+   Because static pages are so 2005.
+   ============================================================================= */
 
 const nav = document.querySelector('.diagram-nav');
 const navLinks = document.querySelectorAll('.nav-link');
@@ -918,17 +1223,18 @@ const heroPanel = document.querySelector('.hero-panel');
 const identityBox = document.querySelector('.identity-box');
 const terminalBox = document.querySelector('.terminal-box');
 
-// Hero parallax - boxes split apart and background fades to reveal content below
+// --- Hero Parallax ---
+// The two boxes split apart as you scroll, revealing content below
 ScrollTrigger.create({
     trigger: heroPanel,
     start: 'top top',
-    end: '+=40%', // Faster transition
+    end: '+=40%',
     pin: true,
     scrub: 1,
     onUpdate: (self) => {
         const progress = self.progress;
 
-        // Move boxes in opposite directions
+        // Move boxes in opposite directions (dramatic exit)
         gsap.to(identityBox, {
             x: -window.innerWidth * progress,
             duration: 0
@@ -938,13 +1244,14 @@ ScrollTrigger.create({
             duration: 0
         });
 
-        // Fade hero background to transparent to reveal content below
+        // Fade hero background to transparent
         const alpha = 1 - progress;
         heroPanel.style.backgroundColor = `rgba(232, 224, 208, ${alpha})`;
     }
 });
 
-// Show navigation after scrolling past hero
+// --- Navigation Visibility ---
+// Show nav after scrolling past hero
 ScrollTrigger.create({
     trigger: heroPanel,
     start: 'bottom 80%',
@@ -952,7 +1259,8 @@ ScrollTrigger.create({
     onLeaveBack: () => nav.classList.remove('visible')
 });
 
-// Reveal section headers
+// --- Section Headers ---
+// Slide in from left
 sectionHeaders.forEach(header => {
     ScrollTrigger.create({
         trigger: header,
@@ -962,14 +1270,14 @@ sectionHeaders.forEach(header => {
     });
 });
 
-// Reveal panels with stagger effect + exit animations
+// --- Panel Reveal & Exit Animations ---
 const panelGroups = document.querySelectorAll('.comic-grid');
 
 panelGroups.forEach(grid => {
     const gridPanels = grid.querySelectorAll('.grid-panel');
 
     gridPanels.forEach((panel, index) => {
-        // Reveal animation
+        // Reveal animation - fade up with stagger
         gsap.to(panel, {
             scrollTrigger: {
                 trigger: panel,
@@ -987,7 +1295,7 @@ panelGroups.forEach(grid => {
             }
         });
 
-        // Exit animation - slide off left or right as panel scrolls up
+        // Exit animation - alternate sliding left/right as panel scrolls up
         ScrollTrigger.create({
             trigger: panel,
             start: 'top top',
@@ -995,20 +1303,22 @@ panelGroups.forEach(grid => {
             scrub: 1,
             onUpdate: (self) => {
                 const progress = self.progress;
-                // Alternate direction based on index
                 const direction = index % 2 === 0 ? -1 : 1;
-                const distance = window.innerWidth * progress;
+                const maxDistance = window.innerWidth > 768 ? window.innerWidth : window.innerWidth * 0.3;
+                const distance = maxDistance * progress;
 
                 gsap.to(panel, {
                     x: direction * distance,
                     duration: 0
                 });
-            }
+            },
+            onLeave: () => gsap.set(panel, { x: 0 }),
+            onEnterBack: () => gsap.set(panel, { x: 0 })
         });
     });
 });
 
-// Track active section for nav highlighting
+// --- Active Section Tracking ---
 const sections = document.querySelectorAll('.panel-section');
 
 sections.forEach(section => {
@@ -1021,6 +1331,10 @@ sections.forEach(section => {
     });
 });
 
+/**
+ * Updates nav highlighting to show current section
+ * @param {string} sectionId - ID of the active section
+ */
 function updateActiveNav(sectionId) {
     navLinks.forEach(link => {
         if (link.dataset.section === sectionId) {
@@ -1031,7 +1345,7 @@ function updateActiveNav(sectionId) {
     });
 }
 
-// Smooth scroll for nav links
+// --- Smooth Scroll Navigation ---
 navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
         e.preventDefault();
@@ -1047,7 +1361,8 @@ navLinks.forEach(link => {
     });
 });
 
-// Subtle parallax on panel illustrations
+// --- Panel Illustration Parallax ---
+// Subtle vertical movement on illustrations
 panels.forEach(panel => {
     const illustration = panel.querySelector('.panel-illustration');
     if (illustration) {
@@ -1064,36 +1379,88 @@ panels.forEach(panel => {
     }
 });
 
-// Flowchart animation on hover
+// --- Flowchart Animations ---
+// Title panels animate on scroll, others on hover
 const flowcharts = document.querySelectorAll('.panel-flowchart');
+
 flowcharts.forEach(flowchart => {
     const steps = flowchart.querySelectorAll('.flow-step');
+    const panel = flowchart.closest('.grid-panel');
+    const isTitlePanel = panel && panel.dataset.project && panel.dataset.project.endsWith('-title');
 
-    flowchart.parentElement.addEventListener('mouseenter', () => {
-        gsap.to(flowchart, { opacity: 1, duration: 0.3 });
-        steps.forEach((step, i) => {
-            gsap.to(step, {
-                backgroundColor: 'var(--color-ink)',
-                color: 'var(--color-cream)',
-                duration: 0.2,
-                delay: i * 0.1
-            });
+    let hasAnimatedOnScroll = false;
+
+    // Scroll-triggered animation for title panels
+    if (isTitlePanel) {
+        ScrollTrigger.create({
+            trigger: flowchart,
+            start: 'top 80%',
+            end: 'bottom 20%',
+            onEnter: () => {
+                hasAnimatedOnScroll = true;
+                animateFlowchartIn(flowchart, steps);
+            },
+            onLeave: () => {
+                hasAnimatedOnScroll = false;
+                animateFlowchartOut(flowchart, steps);
+            },
+            onEnterBack: () => {
+                hasAnimatedOnScroll = true;
+                animateFlowchartIn(flowchart, steps);
+            },
+            onLeaveBack: () => {
+                hasAnimatedOnScroll = false;
+                animateFlowchartOut(flowchart, steps);
+            }
         });
+    }
+
+    // Hover animation for all flowcharts
+    flowchart.parentElement.addEventListener('mouseenter', () => {
+        animateFlowchartIn(flowchart, steps);
     });
 
     flowchart.parentElement.addEventListener('mouseleave', () => {
-        gsap.to(flowchart, { opacity: 0.3, duration: 0.3 });
-        steps.forEach(step => {
-            gsap.to(step, {
-                backgroundColor: 'transparent',
-                color: 'var(--color-ink)',
-                duration: 0.2
-            });
-        });
+        if (!isTitlePanel || !hasAnimatedOnScroll) {
+            animateFlowchartOut(flowchart, steps);
+        }
     });
 });
 
-// About section connector animation
+/**
+ * Animates flowchart to highlighted state
+ * @param {Element} flowchart - Flowchart container
+ * @param {NodeList} steps - Flow step elements
+ */
+function animateFlowchartIn(flowchart, steps) {
+    gsap.to(flowchart, { opacity: 1, duration: 0.3 });
+    steps.forEach((step, i) => {
+        gsap.to(step, {
+            backgroundColor: 'var(--color-ink)',
+            color: 'var(--color-cream)',
+            duration: 0.2,
+            delay: i * 0.1
+        });
+    });
+}
+
+/**
+ * Animates flowchart to default state
+ * @param {Element} flowchart - Flowchart container
+ * @param {NodeList} steps - Flow step elements
+ */
+function animateFlowchartOut(flowchart, steps) {
+    gsap.to(flowchart, { opacity: 0.3, duration: 0.3 });
+    steps.forEach(step => {
+        gsap.to(step, {
+            backgroundColor: 'transparent',
+            color: 'var(--color-ink)',
+            duration: 0.2
+        });
+    });
+}
+
+// --- About Section Connector Animation ---
 const connectorLine = document.querySelector('.connector-line');
 const endpoints = document.querySelectorAll('.endpoint');
 
@@ -1122,7 +1489,7 @@ if (connectorLine) {
     });
 }
 
-// Footer reveal
+// --- Footer Reveal ---
 gsap.from('.footer-box', {
     scrollTrigger: {
         trigger: '.diagram-footer',
@@ -1133,4 +1500,3 @@ gsap.from('.footer-box', {
     duration: 0.6,
     ease: 'power2.out'
 });
-
