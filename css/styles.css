@@ -739,6 +739,27 @@ body {
     height: 100%;
 }
 
+/* HTML5 video embeds */
+.video-embed video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Vertical video (9:16 aspect ratio) */
+.video-embed.vertical {
+    padding-bottom: 133%; /* 9:16 at 75% width */
+    max-width: 75%;
+    margin: 0 auto;
+}
+
+.video-embed.vertical video {
+    object-fit: contain;
+}
+
 /* Panel illustrations (placeholder) */
 .panel-illustration {
     background: var(--color-paper);
@@ -1042,6 +1063,40 @@ body {
     .nav-box {
         padding: 6px 10px;
         font-size: 9px;
+    }
+}
+
+/* Small phones (iPhone SE, etc.) */
+@media (max-width: 480px) {
+    /* Timeline wraps to next line */
+    .panel-flowchart {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .flow-step {
+        font-size: 8px;
+    }
+
+    .flow-arrow {
+        font-size: 10px;
+    }
+
+    /* Title panel stacks vertically - picture below text */
+    .section-title-panel {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .title-illustration {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 21/9;
+        margin-top: 15px;
+    }
+
+    .section-title-panel h2 {
+        font-size: 2.2rem;
     }
 }
 

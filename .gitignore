@@ -23,5 +23,14 @@ redirect/
 # Temporary files
 *.log
 *.tmp
+
+# Environment variables
+.env
 # Unused assets (not deployed)
 assets/
+
+# Video source files (hosted on Cloudinary)
+video/
+
+# Screenshots
+download.png
