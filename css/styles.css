@@ -1156,3 +1156,166 @@ body {
     transform: translateX(0);
     transition: opacity 0.6s, transform 0.6s;
 }
+
+/* =============================================================================
+   CONTACT SECTION
+   Standalone contact form above the footer.
+   ============================================================================= */
+.contact-section {
+    padding: 60px 40px;
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--color-cream);
+    border: var(--border-width) solid var(--color-ink);
+    position: relative;
+    z-index: 5;
+}
+
+.contact-container {
+    border: var(--border-width) solid var(--color-ink);
+    background: var(--color-cream);
+    padding: 30px;
+}
+
+.contact-container h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 20px;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+}
+
+.form-group input,
+.form-group textarea {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    padding: 10px 12px;
+    border: var(--border-width) solid var(--color-ink);
+    background: var(--color-paper);
+    color: var(--color-ink);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-rust);
+    box-shadow: 3px 3px 0 var(--color-ink);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.btn {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 10px 20px;
+    border: var(--border-width) solid var(--color-ink);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.btn-primary {
+    background: var(--color-ink);
+    color: var(--color-cream);
+}
+
+.btn-primary:hover {
+    background: var(--color-rust);
+    border-color: var(--color-rust);
+}
+
+.btn-transform {
+    background: var(--color-paper);
+    color: var(--color-ink);
+}
+
+.btn-transform:hover {
+    background: var(--color-dusty-blue);
+    color: var(--color-cream);
+    border-color: var(--color-dusty-blue);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--color-ink);
+}
+
+.btn-secondary:hover {
+    background: var(--color-ink);
+    color: var(--color-cream);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.transform-section {
+    background: var(--color-paper);
+    border: var(--border-width) solid var(--color-ink);
+    padding: 15px;
+    margin: 10px 0;
+}
+
+.transform-result {
+    margin-bottom: 12px;
+}
+
+.transform-style {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-rust);
+    display: block;
+    margin-bottom: 8px;
+}
+
+.transform-result p {
+    font-style: italic;
+    margin: 0;
+}
+
+.transform-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.form-note {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    opacity: 0.5;
+    margin-top: 10px;
+}

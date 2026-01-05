@@ -1246,6 +1246,17 @@ ScrollTrigger.create({
         // Fade hero background to transparent
         const alpha = 1 - progress;
         heroPanel.style.backgroundColor = `rgba(232, 224, 208, ${alpha})`;
+
+        // Disable pointer events on hero when scrolled past
+        if (progress > 0.1) {
+            heroPanel.style.pointerEvents = 'none';
+            identityBox.style.pointerEvents = 'none';
+            terminalBox.style.pointerEvents = 'none';
+        } else {
+            heroPanel.style.pointerEvents = 'auto';
+            identityBox.style.pointerEvents = 'auto';
+            terminalBox.style.pointerEvents = 'auto';
+        }
     }
 });
 
@@ -1501,3 +1512,126 @@ gsap.from('.footer-box', {
 });
 
 
+/* =============================================================================
+   CONTACT FORM - Message Transform
+   Uses Cloudflare Workers AI to transform messages into random styles.
+   Because even contact forms can be fun.
+   ============================================================================= */
+
+const TRANSFORM_API = 'https://message-transform.blue-snow-21d6.workers.dev';
+
+const contactForm = document.getElementById('contact-form');
+const transformBtn = document.getElementById('transform-btn');
+const messageInput = document.getElementById('contact-message');
+const transformSection = document.getElementById('transform-section');
+const transformStyle = document.getElementById('transform-style');
+const transformedMessage = document.getElementById('transformed-message');
+const useTransformedBtn = document.getElementById('use-transformed');
+const tryAgainBtn = document.getElementById('try-again');
+const editMessageBtn = document.getElementById('edit-message');
+
+let originalMessage = '';
+
+async function transformMessage() {
+    const message = messageInput.value.trim();
+    if (!message) {
+        messageInput.focus();
+        return;
+    }
+
+    originalMessage = message;
+    transformBtn.disabled = true;
+    transformBtn.textContent = 'Transforming...';
+
+    try {
+        const response = await fetch(TRANSFORM_API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message })
+        });
+
+        if (!response.ok) throw new Error('Transform failed');
+
+        const data = await response.json();
+
+        transformStyle.textContent = `Style: ${data.style}`;
+        transformedMessage.textContent = data.transformed;
+        transformSection.style.display = 'block';
+
+    } catch (error) {
+        console.error('Transform error:', error);
+        transformStyle.textContent = 'Error';
+        transformedMessage.textContent = 'Failed to transform message. Try again?';
+        transformSection.style.display = 'block';
+    }
+
+    transformBtn.disabled = false;
+    transformBtn.textContent = 'Transform Message';
+}
+
+if (transformBtn && messageInput) {
+    transformBtn.addEventListener('click', transformMessage);
+}
+
+// "Send This" button - set transformed message before form submits
+if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+        // If transform section is visible, use the transformed message
+        if (transformSection && transformSection.style.display !== 'none') {
+            messageInput.value = transformedMessage.textContent;
+        }
+    }, true); // Use capture to run before the other submit handler
+}
+
+if (tryAgainBtn) {
+    tryAgainBtn.addEventListener('click', () => {
+        // Re-transform with original message
+        messageInput.value = originalMessage;
+        transformMessage();
+    });
+}
+
+if (editMessageBtn) {
+    editMessageBtn.addEventListener('click', () => {
+        // Go back to editing, keep original in textarea
+        messageInput.value = originalMessage;
+        transformSection.style.display = 'none';
+        messageInput.focus();
+    });
+}
+
+// Handle form submission via AJAX to stay on page
+if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const sendBtn = document.getElementById('send-btn');
+        sendBtn.disabled = true;
+        sendBtn.textContent = 'Sending...';
+
+        try {
+            const formData = new FormData(contactForm);
+            const response = await fetch(contactForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (response.ok) {
+                contactForm.reset();
+                transformSection.style.display = 'none';
+                sendBtn.textContent = 'Sent!';
+                setTimeout(() => {
+                    sendBtn.textContent = 'Send';
+                    sendBtn.disabled = false;
+                }, 2000);
+            } else {
+                throw new Error('Form submission failed');
+            }
+        } catch (error) {
+            console.error('Submit error:', error);
+            sendBtn.textContent = 'Error - Try Again';
+            sendBtn.disabled = false;
+        }
+    });
+}
