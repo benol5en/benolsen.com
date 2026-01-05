@@ -64,7 +64,8 @@ const CONFIG = {
         wobbleMin: 8,
         wobbleMax: 23,
         pointsMin: 8,
-        pointsMax: 14
+        pointsMax: 14,
+        maxScribbles: 200       // Limit total scribbles to prevent memory bloat
     }
 };
 
@@ -898,9 +899,26 @@ initHeroAnimation();
    SCRIBBLE BACKGROUND
    Generates wobbly circles that accumulate over time.
    It's either generative art or a mess. Why not both?
+   Pauses when videos play to keep things smooth.
    ============================================================================= */
 
 const scribbleSvg = document.getElementById('scribble-svg');
+let scribblePaused = false;
+let scribbleInterval = null;
+
+/**
+ * Pauses scribble generation (called when video plays)
+ */
+function pauseScribbles() {
+    scribblePaused = true;
+}
+
+/**
+ * Resumes scribble generation (called when video pauses/ends)
+ */
+function resumeScribbles() {
+    scribblePaused = false;
+}
 
 /**
  * Sets up SVG viewBox to match viewport
@@ -960,6 +978,8 @@ function generateScribblePath(centerX, centerY) {
  * Creates and animates a single scribble
  */
 function createScribble() {
+    if (scribblePaused) return;
+
     const startX = Math.random() * window.innerWidth;
     const startY = Math.random() * window.innerHeight;
 
@@ -967,6 +987,15 @@ function createScribble() {
     path.setAttribute('d', generateScribblePath(startX, startY));
 
     scribbleSvg.appendChild(path);
+
+    // Remove oldest scribbles if we've hit the limit
+    const paths = scribbleSvg.querySelectorAll('path');
+    if (paths.length > CONFIG.scribble.maxScribbles) {
+        const toRemove = paths.length - CONFIG.scribble.maxScribbles;
+        for (let i = 0; i < toRemove; i++) {
+            paths[i].remove();
+        }
+    }
 
     // Animate the drawing (stroke-dashoffset trick)
     const pathLength = path.getTotalLength();
@@ -987,7 +1016,7 @@ function startScribbling() {
     setupScribbleSvg();
 
     // Create scribbles continuously
-    setInterval(() => {
+    scribbleInterval = setInterval(() => {
         for (let i = 0; i < CONFIG.scribble.scribbleCount; i++) {
             createScribble();
         }
@@ -996,6 +1025,77 @@ function startScribbling() {
 
 // Start scribbling shortly after page load
 setTimeout(startScribbling, 500);
+
+
+/* =============================================================================
+   VIDEO PLAYBACK DETECTION
+   Pauses scribbles when videos play to keep things smooth.
+   Works with both native HTML5 video and YouTube iframes.
+   ============================================================================= */
+
+// Track playing videos to know when to resume
+let playingVideos = 0;
+
+/**
+ * Called when any video starts playing
+ */
+function onVideoPlay() {
+    playingVideos++;
+    pauseScribbles();
+}
+
+/**
+ * Called when any video pauses or ends
+ */
+function onVideoStop() {
+    playingVideos = Math.max(0, playingVideos - 1);
+    if (playingVideos === 0) {
+        resumeScribbles();
+    }
+}
+
+// Listen to native HTML5 video elements
+document.querySelectorAll('video').forEach(video => {
+    video.addEventListener('play', onVideoPlay);
+    video.addEventListener('pause', onVideoStop);
+    video.addEventListener('ended', onVideoStop);
+});
+
+// YouTube IFrame API setup
+let youtubeAPIReady = false;
+const youtubePlayers = [];
+
+// Load YouTube IFrame API
+const ytScript = document.createElement('script');
+ytScript.src = 'https://www.youtube.com/iframe_api';
+document.head.appendChild(ytScript);
+
+// Called automatically by YouTube API when ready
+window.onYouTubeIframeAPIReady = function() {
+    youtubeAPIReady = true;
+
+    // Find all YouTube iframes and wrap them with the API
+    document.querySelectorAll('iframe[src*="youtube.com/embed"]').forEach((iframe, index) => {
+        // YouTube API needs an id on the iframe
+        if (!iframe.id) {
+            iframe.id = `youtube-player-${index}`;
+        }
+
+        const player = new YT.Player(iframe.id, {
+            events: {
+                onStateChange: (event) => {
+                    if (event.data === YT.PlayerState.PLAYING) {
+                        onVideoPlay();
+                    } else if (event.data === YT.PlayerState.PAUSED ||
+                               event.data === YT.PlayerState.ENDED) {
+                        onVideoStop();
+                    }
+                }
+            }
+        });
+        youtubePlayers.push(player);
+    });
+};
 
 
 /* =============================================================================
