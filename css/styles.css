@@ -243,6 +243,17 @@ body {
     opacity: 0.25;
 }
 
+/* CSS animation for scribble drawing - way more efficient than JS */
+@keyframes drawScribble {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+.scribble-bg path.animating {
+    animation: drawScribble var(--draw-duration, 1.5s) ease-out forwards;
+}
+
 .hero-dual-box {
     display: grid;
     grid-template-columns: 1fr 1fr;

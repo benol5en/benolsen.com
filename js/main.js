@@ -1009,16 +1009,16 @@ function createScribble() {
         }
     }
 
-    // Animate the drawing (stroke-dashoffset trick)
-    const pathLength = path.getTotalLength();
-    path.style.strokeDasharray = pathLength;
-    path.style.strokeDashoffset = pathLength;
+    // Animate the drawing with CSS (much more efficient than GSAP)
+    // Estimate path length instead of expensive getTotalLength()
+    // Scribbles are roughly circles with radius 30-110, so circumference ~190-690
+    const estimatedLength = 800; // Generous estimate that works for all sizes
+    const duration = 1 + Math.random() * 1.5;
 
-    gsap.to(path, {
-        strokeDashoffset: 0,
-        duration: 1 + Math.random() * 1.5,
-        ease: 'power1.out'
-    });
+    path.style.strokeDasharray = estimatedLength;
+    path.style.strokeDashoffset = estimatedLength;
+    path.style.setProperty('--draw-duration', `${duration}s`);
+    path.classList.add('animating');
 }
 
 /**
