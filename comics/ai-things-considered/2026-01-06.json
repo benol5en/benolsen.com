@@ -1,0 +1,42 @@
+{
+  "date": "2026-01-06",
+  "image": "2026-01-06.png",
+  "stories": [
+    {
+      "panel": 1,
+      "title": "Here's how to view NPR's coverage of Jan. 6, including a timeline, documents and video",
+      "summary": "NPR's Jan. 6 coverage includes a database of all the charges filed against more than 1500 defendants. It's now one of the only places that information is publicly accessible.",
+      "source_url": "https://www.npr.org/2026/01/06/nx-s1-5668336/heres-how-to-view-nprs-coverage-of-jan-6-including-a-timeline-documents-and-video"
+    },
+    {
+      "panel": 2,
+      "title": "President Trump's comments about Greenland dominate European meeting on Ukraine",
+      "summary": "A coalition of 35 countries met to discuss Ukraine's sovereignty if and when a peace agreement with Russia is reached. The meeting was overshadowed by worries about the U.S.'s interest in Greenland.",
+      "source_url": "https://www.npr.org/2026/01/06/nx-s1-5668163/president-trumps-comments-about-greenland-dominate-european-meeting-on-ukraine"
+    },
+    {
+      "panel": 3,
+      "title": "For this artist, the New York City MetroCard offered infinite possibilities",
+      "summary": "For artist Thomas McKean, the New York City MetroCard was anything but mundane. He used cut-up bits of the cards to create hundreds of sculptures and collages, and still has a stockpile to work with.",
+      "source_url": "https://www.npr.org/2026/01/06/nx-s1-5662545/for-this-artist-the-new-york-city-metrocard-offered-infinite-possibilities"
+    },
+    {
+      "panel": 4,
+      "title": "Trial of former Uvalde school officer where 21 people died opens in Texas",
+      "summary": "A former Uvalde, Texas, police officer goes to trial for his response in the 2022 school shooting that left 19 students and two teachers dead. He faces 29 charges of child endangerment.",
+      "source_url": "https://www.npr.org/2026/01/06/nx-s1-5667601/trial-of-former-uvalde-school-officer-where-21-people-died-opens-in-texas"
+    },
+    {
+      "panel": 5,
+      "title": "Who's running Venezuela?",
+      "summary": "President Trump says he's in charge. But the U.S. has no troops or diplomats Venezuela, and all of Nicolas Maduro's top aides remain in power.",
+      "source_url": "https://www.npr.org/2026/01/06/nx-s1-5668242/whos-running-venezuela"
+    },
+    {
+      "panel": 6,
+      "title": "'People want to look good': Researcher hopes redesigned walker will remove stigma",
+      "summary": "People who need walkers are often reluctant to start using them because of stigma. A Colorado researcher has designed a walker she says has more appeal.",
+      "source_url": "https://www.npr.org/2026/01/06/nx-s1-5640140-e1/people-want-to-look-good-researcher-hopes-redesigned-walker-will-remove-stigma"
+    }
+  ]
+}
