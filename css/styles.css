@@ -514,6 +514,8 @@ body {
     padding: 80px 40px;
     max-width: 1200px;
     margin: 0 auto;
+    position: relative;
+    z-index: 15; /* Above hero panel (z-index: 10) */
 }
 
 /* First section (Public Art) starts behind hero */
