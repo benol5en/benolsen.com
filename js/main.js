@@ -919,18 +919,27 @@ let scribblePaused = false;
 let scribbleInterval = null;
 
 /**
- * Pauses scribble generation (called when video plays)
+ * Pauses scribble generation (called when video plays or tab hidden)
  */
 function pauseScribbles() {
     scribblePaused = true;
 }
 
 /**
- * Resumes scribble generation (called when video pauses/ends)
+ * Resumes scribble generation (called when video pauses/ends or tab visible)
  */
 function resumeScribbles() {
     scribblePaused = false;
 }
+
+// Pause scribbles when tab is hidden (no point rendering what you can't see)
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        pauseScribbles();
+    } else {
+        resumeScribbles();
+    }
+});
 
 /**
  * Sets up SVG viewBox to match viewport
