@@ -763,6 +763,39 @@ body {
     border-radius: 4px;
 }
 
+/* AI Things Considered comic strip with clickable panels */
+.comic-strip-container {
+    position: relative;
+    margin: 10px 0;
+}
+
+.comic-strip-container .panel-image {
+    margin: 0;
+    display: block;
+}
+
+.comic-panel-links {
+    position: absolute;
+    top: 7.5%;  /* Skip the header area */
+    left: 2.3%;  /* Account for margin */
+    right: 2.3%;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 1%;
+}
+
+.comic-panel-links a {
+    display: block;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.comic-panel-links a:hover {
+    background-color: rgba(166, 93, 63, 0.15);  /* Subtle rust highlight */
+}
+
 /* Panel illustrations (placeholder) */
 .panel-illustration {
     background: var(--color-paper);
