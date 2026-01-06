@@ -72,8 +72,8 @@ const CONFIG = {
         wobbleMin: 8,
         wobbleMax: 23,
         pointsMin: 8,
-        pointsMax: 14,
-        maxScribbles: 200       // Limit total scribbles to prevent memory bloat
+        pointsMax: 14
+        // No max limit - Canvas lets them accumulate forever like ink on paper
     }
 };
 
@@ -908,57 +908,62 @@ initHeroAnimation();
 
 
 /* =============================================================================
-   SCRIBBLE BACKGROUND
-   Generates wobbly circles that accumulate over time.
-   It's either generative art or a mess. Why not both?
-   Pauses when videos play to keep things smooth.
+   SCRIBBLE BACKGROUND (Canvas Version)
+   Generates wobbly circles that accumulate over time like ink on paper.
+   Uses Canvas instead of SVG - once drawn, pixels cost nothing to keep.
+   Fill the page. It's art.
    ============================================================================= */
 
-const scribbleSvg = document.getElementById('scribble-svg');
+const scribbleCanvas = document.getElementById('scribble-canvas');
+const scribbleCtx = scribbleCanvas.getContext('2d');
 let scribblePaused = false;
 let scribbleInterval = null;
 
 /**
- * Pauses scribble generation (called when video plays or tab hidden)
+ * Pauses scribble generation (called when video plays)
  */
 function pauseScribbles() {
     scribblePaused = true;
 }
 
 /**
- * Resumes scribble generation (called when video pauses/ends or tab visible)
+ * Resumes scribble generation (called when video pauses/ends)
  */
 function resumeScribbles() {
     scribblePaused = false;
 }
 
-// Pause scribbles when tab is hidden (no point rendering what you can't see)
-document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-        pauseScribbles();
-    } else {
-        resumeScribbles();
-    }
-});
-
 /**
- * Sets up SVG viewBox to match viewport
+ * Sets up canvas size to match viewport
+ * Uses devicePixelRatio for sharp rendering on high-DPI screens
  */
-function setupScribbleSvg() {
+function setupScribbleCanvas() {
+    const dpr = window.devicePixelRatio || 1;
     const width = window.innerWidth;
     const height = window.innerHeight;
-    scribbleSvg.setAttribute('viewBox', `0 0 ${width} ${height}`);
-    scribbleSvg.setAttribute('width', width);
-    scribbleSvg.setAttribute('height', height);
+
+    // Set canvas size accounting for device pixel ratio
+    scribbleCanvas.width = width * dpr;
+    scribbleCanvas.height = height * dpr;
+    scribbleCanvas.style.width = width + 'px';
+    scribbleCanvas.style.height = height + 'px';
+
+    // Scale context to match
+    scribbleCtx.scale(dpr, dpr);
+
+    // Set up stroke style (matches the old SVG style)
+    scribbleCtx.strokeStyle = 'rgba(42, 37, 34, 0.25)'; // --color-ink at 25% opacity
+    scribbleCtx.lineWidth = 2; // --border-width
+    scribbleCtx.lineCap = 'round';
+    scribbleCtx.lineJoin = 'round';
 }
 
 /**
- * Generates an imperfect circle path (because perfection is boring)
+ * Draws a wobbly circle directly to canvas
  * @param {number} centerX - Circle center X
  * @param {number} centerY - Circle center Y
- * @returns {string} SVG path data
  */
-function generateScribblePath(centerX, centerY) {
+function drawScribble(centerX, centerY) {
     const cfg = CONFIG.scribble;
     const radius = cfg.radiusMin + Math.random() * (cfg.radiusMax - cfg.radiusMin);
     const wobble = cfg.wobbleMin + Math.random() * (cfg.wobbleMax - cfg.wobbleMin);
@@ -976,8 +981,9 @@ function generateScribblePath(centerX, centerY) {
         circlePoints.push({ x, y });
     }
 
-    // Build path with wobbly bezier curves
-    let d = `M ${circlePoints[0].x} ${circlePoints[0].y}`;
+    // Draw path with wobbly bezier curves
+    scribbleCtx.beginPath();
+    scribbleCtx.moveTo(circlePoints[0].x, circlePoints[0].y);
 
     for (let i = 1; i < circlePoints.length; i++) {
         const prev = circlePoints[i - 1];
@@ -989,60 +995,48 @@ function generateScribblePath(centerX, centerY) {
         const cp2x = prev.x + (curr.x - prev.x) * 0.7 + (Math.random() - 0.5) * wobble;
         const cp2y = prev.y + (curr.y - prev.y) * 0.7 + (Math.random() - 0.5) * wobble;
 
-        d += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${curr.x} ${curr.y}`;
+        scribbleCtx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, curr.x, curr.y);
     }
 
-    return d;
+    scribbleCtx.stroke();
 }
 
 /**
- * Creates and animates a single scribble
+ * Creates a scribble at a random position
  */
 function createScribble() {
     if (scribblePaused) return;
 
-    const startX = Math.random() * window.innerWidth;
-    const startY = Math.random() * window.innerHeight;
-
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path.setAttribute('d', generateScribblePath(startX, startY));
-
-    scribbleSvg.appendChild(path);
-
-    // Remove oldest scribbles if we've hit the limit
-    const paths = scribbleSvg.querySelectorAll('path');
-    if (paths.length > CONFIG.scribble.maxScribbles) {
-        const toRemove = paths.length - CONFIG.scribble.maxScribbles;
-        for (let i = 0; i < toRemove; i++) {
-            paths[i].remove();
-        }
-    }
-
-    // Animate the drawing with CSS (much more efficient than GSAP)
-    // Estimate path length instead of expensive getTotalLength()
-    // Scribbles are roughly circles with radius 30-110, so circumference ~190-690
-    const estimatedLength = 800; // Generous estimate that works for all sizes
-    const duration = 1 + Math.random() * 1.5;
-
-    path.style.strokeDasharray = estimatedLength;
-    path.style.strokeDashoffset = estimatedLength;
-    path.style.setProperty('--draw-duration', `${duration}s`);
-    path.classList.add('animating');
+    const x = Math.random() * window.innerWidth;
+    const y = Math.random() * window.innerHeight;
+    drawScribble(x, y);
 }
 
 /**
  * Starts the continuous scribbling process
  */
 function startScribbling() {
-    setupScribbleSvg();
+    setupScribbleCanvas();
 
-    // Create scribbles continuously
+    // Create scribbles continuously - they just accumulate like ink on paper
     scribbleInterval = setInterval(() => {
         for (let i = 0; i < CONFIG.scribble.scribbleCount; i++) {
             createScribble();
         }
     }, CONFIG.scribble.interval);
 }
+
+// Handle window resize - save content and restore at new size
+window.addEventListener('resize', () => {
+    // Save current canvas content
+    const imageData = scribbleCtx.getImageData(0, 0, scribbleCanvas.width, scribbleCanvas.height);
+
+    // Resize canvas
+    setupScribbleCanvas();
+
+    // Restore content (will be clipped if window got smaller, which is fine)
+    scribbleCtx.putImageData(imageData, 0, 0);
+});
 
 // Start scribbling shortly after page load (unless disabled for testing)
 if (!DEBUG_NO_SCRIBBLES) {
