@@ -13,6 +13,14 @@
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Debug toggles via URL params: ?noScribbles=1, ?noGameOfLife=1
+const urlParams = new URLSearchParams(window.location.search);
+const DEBUG_NO_SCRIBBLES = urlParams.has('noScribbles');
+const DEBUG_NO_GAME_OF_LIFE = urlParams.has('noGameOfLife');
+
+if (DEBUG_NO_SCRIBBLES) console.log('🔧 Scribbles DISABLED for testing');
+if (DEBUG_NO_GAME_OF_LIFE) console.log('🔧 Game of Life DISABLED for testing');
+
 
 /* =============================================================================
    CONFIGURATION
@@ -193,8 +201,12 @@ function gameLoop() {
     drawGrid();
 }
 
-// Let there be life
-setInterval(gameLoop, CONFIG.gameOfLife.updateInterval);
+// Let there be life (unless disabled for testing)
+if (!DEBUG_NO_GAME_OF_LIFE) {
+    setInterval(gameLoop, CONFIG.gameOfLife.updateInterval);
+} else {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
 
 // Handle window resize (RIP all those cells)
 window.addEventListener('resize', () => {
@@ -1023,8 +1035,10 @@ function startScribbling() {
     }, CONFIG.scribble.interval);
 }
 
-// Start scribbling shortly after page load
-setTimeout(startScribbling, 500);
+// Start scribbling shortly after page load (unless disabled for testing)
+if (!DEBUG_NO_SCRIBBLES) {
+    setTimeout(startScribbling, 500);
+}
 
 
 /* =============================================================================
