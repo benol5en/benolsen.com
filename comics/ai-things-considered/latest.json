@@ -1,0 +1,42 @@
+{
+  "date": "2026-01-07",
+  "image": "2026-01-07.png",
+  "stories": [
+    {
+      "panel": 1,
+      "title": "An immigration and enforcement officer shoots and kills a woman in Minneapolis",
+      "summary": "An officer with Immigration and Customs Enforcement shot and killed a woman during the Trump administrations' latest immigration crackdown in Minneapolis.",
+      "source_url": "https://www.npr.org/2026/01/07/nx-s1-5670307/an-immigration-and-enforcement-officer-shoots-and-kills-a-woman-in-minneapolis"
+    },
+    {
+      "panel": 2,
+      "title": "Denmark is telling President Trump to stop threatening to seize Greenland",
+      "summary": "Politicians in Denmark are dealing with widespread fears over U.S. officials' statements about taking over the Danish territory of Greenland. President Trump said it's crucial for security interests.",
+      "source_url": "https://www.npr.org/2026/01/07/nx-s1-5667086/denmark-is-telling-president-trump-to-stop-threatening-to-seize-greenland"
+    },
+    {
+      "panel": 3,
+      "title": "At CES, the world's biggest tech companies hope to make a splash",
+      "summary": "At this year's CES convention in Las Vegas, the world's biggest consumer technology companies are hoping to make a splash, showcasing new chips, robots and AI-enabled devices.",
+      "source_url": "https://www.npr.org/2026/01/07/nx-s1-5668349/at-ces-the-worlds-biggest-tech-companies-hope-to-make-a-splash"
+    },
+    {
+      "panel": 4,
+      "title": "Aldrich Ames, CIA officer who spied for Soviet Union, has died at 84",
+      "summary": "One of the most notorious spies in U.S. history, Aldrich Ames, died on Tuesday at the age of 84. As a CIA officer, Ames sold highly classified secrets to the Soviet Union starting in the mid 1980s.",
+      "source_url": "https://www.npr.org/2026/01/07/nx-s1-5669442/aldrich-ames-cia-officer-who-spied-for-soviet-union-has-died-at-84"
+    },
+    {
+      "panel": 5,
+      "title": "Women's para ice hockey edges closer to its own Paralympic stage",
+      "summary": "When the Paralympics begin in Italy, one sport that won't be in the competition is women's para ice hockey. But after a successful World Championships, players hope it could be added in the future.",
+      "source_url": "https://www.npr.org/2026/01/07/nx-s1-5561036-e1/womens-para-ice-hockey-edges-closer-to-its-own-paralympic-stage"
+    },
+    {
+      "panel": 6,
+      "title": "Old and new faces reach the Billboard Hot 100 charts",
+      "summary": "After a rush of holiday-themed music, a sweep of new pop songs move up the chart.",
+      "source_url": "https://www.npr.org/2026/01/07/nx-s1-5669379/old-and-new-faces-reach-the-billboard-hot-100-charts"
+    }
+  ]
+}
