@@ -1752,3 +1752,52 @@ if (contactForm) {
         }
     });
 }
+
+
+/* =============================================================================
+   AI THINGS CONSIDERED - DYNAMIC COMIC LOADER
+   Fetches latest comic data from latest.json and renders it dynamically.
+   ============================================================================= */
+
+async function loadAIThingsConsidered() {
+    const container = document.getElementById('atc-comic-container');
+    if (!container) return;
+
+    try {
+        const response = await fetch('comics/ai-things-considered/latest.json');
+        if (!response.ok) throw new Error('Failed to fetch comic data');
+
+        const data = await response.json();
+
+        // Build the comic image
+        const img = document.createElement('img');
+        img.src = `comics/ai-things-considered/${data.image}`;
+        img.alt = 'AI Things Considered - Daily Comic';
+        img.className = 'panel-image';
+        img.style.cssText = 'width: 100%; border: 2px solid var(--color-ink);';
+
+        // Build the clickable panel links overlay
+        const linksDiv = document.createElement('div');
+        linksDiv.className = 'comic-panel-links';
+
+        data.stories.forEach(story => {
+            const link = document.createElement('a');
+            link.href = story.source_url;
+            link.target = '_blank';
+            link.title = story.title;
+            linksDiv.appendChild(link);
+        });
+
+        // Clear loading state and insert content
+        container.innerHTML = '';
+        container.appendChild(img);
+        container.appendChild(linksDiv);
+
+    } catch (error) {
+        console.error('Failed to load AI Things Considered:', error);
+        container.innerHTML = '<p class="detail">Comic unavailable</p>';
+    }
+}
+
+// Load comic on page ready
+loadAIThingsConsidered();
