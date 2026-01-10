@@ -1799,5 +1799,237 @@ async function loadAIThingsConsidered() {
     }
 }
 
-// Load comic on page ready
+// Load comic on page ready (only on homepage)
 loadAIThingsConsidered();
+
+
+/* =============================================================================
+   HYBRID SPA NAVIGATION
+   Intercepts internal links to swap content without full page reload.
+   Keeps scribble canvas running continuously across page transitions.
+   ============================================================================= */
+
+const SPA = {
+    contentSelector: 'main',
+    isNavigating: false,
+
+    init() {
+        // Intercept clicks on internal links
+        document.addEventListener('click', (e) => {
+            const link = e.target.closest('a[href]');
+            if (!link) return;
+
+            // Parse the href
+            const href = link.getAttribute('href');
+
+            // Skip external links, hash-only links, downloads, and new tabs
+            if (!href) return;
+            if (href.startsWith('http') || href.startsWith('//')) return;
+            if (href.startsWith('#')) return;  // Let same-page hash links work normally
+            if (link.target === '_blank') return;
+            if (link.hasAttribute('download')) return;
+
+            // Handle internal page navigation
+            const url = new URL(link.href, location.origin);
+            if (url.origin !== location.origin) return;
+
+            // Only skip if it's a hash change on the SAME page
+            if (url.pathname === location.pathname && url.hash) return;
+
+            e.preventDefault();
+            this.navigate(url.pathname + url.search + url.hash);
+        });
+
+        // Handle browser back/forward
+        window.addEventListener('popstate', () => {
+            this.loadPage(location.pathname, false);
+        });
+    },
+
+    async navigate(path) {
+        if (this.isNavigating) return;
+        await this.loadPage(path, true);
+    },
+
+    async loadPage(path, pushState = true) {
+        if (this.isNavigating) return;
+        this.isNavigating = true;
+
+        try {
+            const response = await fetch(path);
+            if (!response.ok) throw new Error('Page not found');
+
+            const html = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+
+            // Swap main content
+            const newContent = doc.querySelector(this.contentSelector);
+            const currentContent = document.querySelector(this.contentSelector);
+
+            if (newContent && currentContent) {
+                currentContent.replaceWith(newContent);
+            }
+
+            // Update page title
+            document.title = doc.title;
+
+            // Update URL
+            if (pushState) {
+                history.pushState({}, '', path);
+            }
+
+            // Scroll to top (or to hash if present)
+            const hash = path.split('#')[1];
+            if (hash) {
+                const target = document.getElementById(hash);
+                if (target) {
+                    target.scrollIntoView();
+                }
+            } else {
+                window.scrollTo(0, 0);
+            }
+
+            // Re-initialize page-specific JS
+            this.initPageScripts(path);
+
+        } catch (error) {
+            console.error('SPA navigation failed:', error);
+            // Fallback to traditional navigation
+            location.href = path;
+        } finally {
+            this.isNavigating = false;
+        }
+    },
+
+    initPageScripts(path) {
+        // Re-init ScrollTrigger for new content
+        if (typeof ScrollTrigger !== 'undefined') {
+            ScrollTrigger.refresh();
+        }
+
+        // Page-specific initialization
+        if (path === '/' || path === '/index.html' || path.endsWith('/index.html') && !path.includes('ai-things-considered')) {
+            // Homepage - comic loader
+            loadAIThingsConsidered();
+        } else if (path.includes('ai-things-considered')) {
+            // Archive page
+            loadArchive();
+        }
+    }
+};
+
+// Initialize SPA navigation
+SPA.init();
+
+
+/* =============================================================================
+   ARCHIVE PAGE - COMIC GRID LOADER
+   Loads all comics from archive.json and displays in a grid.
+   ============================================================================= */
+
+async function loadArchive() {
+    const container = document.getElementById('archive-grid');
+    if (!container) return;
+
+    // Determine base path based on current location
+    const basePath = location.pathname.includes('ai-things-considered')
+        ? '../comics/ai-things-considered'
+        : 'comics/ai-things-considered';
+
+    try {
+        const response = await fetch(`${basePath}/archive.json`);
+        if (!response.ok) throw new Error('Failed to fetch archive');
+
+        const data = await response.json();
+
+        container.innerHTML = data.comics.map(comic => `
+            <article class="archive-item" data-date="${comic.date}" data-basepath="${basePath}">
+                <img src="${basePath}/${comic.image}"
+                     alt="AI Things Considered - ${formatArchiveDate(comic.date)}"
+                     loading="lazy">
+                <div class="archive-item-meta">
+                    <span class="archive-item-date">${formatArchiveDate(comic.date)}</span>
+                </div>
+            </article>
+        `).join('');
+
+        // Add click handlers for archive items
+        container.querySelectorAll('.archive-item').forEach(item => {
+            item.addEventListener('click', () => openComicModal(item.dataset.date, item.dataset.basepath));
+        });
+
+    } catch (error) {
+        console.error('Failed to load archive:', error);
+        container.innerHTML = '<p class="archive-error">Archive unavailable. Please try again later.</p>';
+    }
+}
+
+/**
+ * Opens a modal with the full comic and clickable panel links
+ */
+async function openComicModal(date, basePath) {
+    // Fetch the full comic data
+    try {
+        const response = await fetch(`${basePath}/${date}.json`);
+        if (!response.ok) throw new Error('Failed to fetch comic');
+        const data = await response.json();
+
+        // Create modal
+        const modal = document.createElement('div');
+        modal.className = 'comic-modal';
+        modal.innerHTML = `
+            <div class="comic-modal-backdrop"></div>
+            <div class="comic-modal-content">
+                <button class="comic-modal-close">&times;</button>
+                <div class="comic-modal-date">${formatArchiveDate(date)}</div>
+                <div class="comic-modal-comic">
+                    <img src="${basePath}/${data.image}" alt="AI Things Considered - ${date}">
+                    <div class="comic-panel-links">
+                        ${data.stories.map(story => `
+                            <a href="${story.source_url}" target="_blank" title="${story.title}"></a>
+                        `).join('')}
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        // Animate in
+        requestAnimationFrame(() => modal.classList.add('active'));
+
+        // Close handlers
+        const closeModal = () => {
+            modal.classList.remove('active');
+            setTimeout(() => modal.remove(), 300);
+        };
+
+        modal.querySelector('.comic-modal-backdrop').addEventListener('click', closeModal);
+        modal.querySelector('.comic-modal-close').addEventListener('click', closeModal);
+        document.addEventListener('keydown', function escHandler(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+                document.removeEventListener('keydown', escHandler);
+            }
+        });
+
+    } catch (error) {
+        console.error('Failed to load comic:', error);
+    }
+}
+
+function formatArchiveDate(dateStr) {
+    const date = new Date(dateStr + 'T12:00:00');
+    return date.toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+}
+
+// Load archive on page ready if we're on the archive page
+if (location.pathname.includes('ai-things-considered')) {
+    loadArchive();
+}
