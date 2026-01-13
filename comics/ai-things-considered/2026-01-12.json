@@ -4,15 +4,15 @@
   "stories": [
     {
       "panel": 1,
-      "title": "Trump doubles down on Iran threat \u2014 but also offers talks \u2014 as protest spreads",
-      "summary": "President Trump doubles down on Iran threats as protests become deadlier, but also offers talks.",
-      "source_url": "https://www.npr.org/2026/01/12/nx-s1-5673928/trump-doubles-down-on-iran-threat-but-also-offers-talks-as-protest-spreads"
+      "title": "Iran cracks down on protestors, Trump mulls US options",
+      "summary": "Iran's government is cracking down hard on massive street protests. The number of demonstrators killed is believed to be soaring. Meanwhile, President Trump keeps suggesting the U.S. may get involved.",
+      "source_url": "https://www.npr.org/2026/01/12/nx-s1-5674860/iran-cracks-down-on-protestors-trump-mulls-us-options"
     },
     {
       "panel": 2,
-      "title": "An unbearable situation: How a nonprofit helped evict a black bear in LA",
-      "summary": "A black bear made a home for itself underneath a Los Angeles man's home weeks ago. He called in expert bear-evictors to solve the problem.",
-      "source_url": "https://www.npr.org/2026/01/12/nx-s1-5674843/an-unbearable-situation-how-a-nonprofit-helped-evict-a-black-bear-in-la"
+      "title": "Minnesota steps up its resistance to the Trump Administration's surge of ICE officers",
+      "summary": "A snapshot of ICE actions around Minneapolis Monday, and the various ways the community is responding.",
+      "source_url": "https://www.npr.org/2026/01/12/nx-s1-5674857/minnesota-steps-up-its-resistance-to-the-trump-administrations-surge-of-ice-officers"
     },
     {
       "panel": 3,
@@ -22,21 +22,21 @@
     },
     {
       "panel": 4,
-      "title": "Lost overnight, a 6-year-old was found by a man who ignored search teams' advice",
-      "summary": "When he was 6 years old, Thomas Sinclair wandered away from his family's campsite on Lake Superior and got lost. At dawn he heard a voice that has shaped his life ever since.",
-      "source_url": "https://www.npr.org/2026/01/12/nx-s1-5672573/lost-overnight-a-6-year-old-was-found-by-a-man-who-ignored-search-teams-advice"
-    },
-    {
-      "panel": 5,
-      "title": "Minnesota steps up its resistance to the Trump Administration's surge of ICE officers",
-      "summary": "A snapshot of ICE actions around Minneapolis Monday, and the various ways the community is responding.",
-      "source_url": "https://www.npr.org/2026/01/12/nx-s1-5674857/minnesota-steps-up-its-resistance-to-the-trump-administrations-surge-of-ice-officers"
-    },
-    {
-      "panel": 6,
       "title": "'Hope. Hope. Hope.' How Gabby Giffords keeps fighting for change.",
       "summary": "NPR's Juana Summers speaks with former Arizona Congresswoman Gabby Giffords and Giffords Executive Director Emma Brown about their efforts to stop gun violence.",
       "source_url": "https://www.npr.org/2026/01/12/nx-s1-5668344/hope-hope-hope-how-gabby-giffords-keeps-fighting-for-change"
+    },
+    {
+      "panel": 5,
+      "title": "An unbearable situation: How a nonprofit helped evict a black bear in LA",
+      "summary": "A black bear made a home for itself underneath a Los Angeles man's home weeks ago. He called in expert bear-evictors to solve the problem.",
+      "source_url": "https://www.npr.org/2026/01/12/nx-s1-5674843/an-unbearable-situation-how-a-nonprofit-helped-evict-a-black-bear-in-la"
+    },
+    {
+      "panel": 6,
+      "title": "Poet Amanda Gorman on her work, 'For Renee Nicole Good'",
+      "summary": "Poet Amanda Gorman wrote a poem for Renee Good, who was killed by an ICE officer this week. Gorman reads her poem and speaks on its meaning.",
+      "source_url": "https://www.npr.org/2026/01/12/nx-s1-5672495/poet-amanda-gorman-on-her-work-for-renee-nicole-good"
     }
   ]
 }
