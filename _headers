@@ -1,0 +1,10 @@
+# Short cache for frequently updated comic files
+/comics/ai-things-considered/latest*
+  Cache-Control: public, max-age=300, must-revalidate
+
+/comics/ai-things-considered/archive.json
+  Cache-Control: public, max-age=300, must-revalidate
+
+# Dated files can cache longer (they don't change)
+/comics/ai-things-considered/2026-*
+  Cache-Control: public, max-age=86400
