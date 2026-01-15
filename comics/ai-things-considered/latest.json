@@ -4,9 +4,9 @@
   "stories": [
     {
       "panel": 1,
-      "title": "This teenager who wrote a research paper on how AI could impact teen jobs",
-      "summary": "A 17-year-old in California who got curious about the impact of AI on typical teen jobs. She embarked on an ambitious economic research project and shared her findings with us.",
-      "source_url": "https://www.npr.org/2026/01/15/nx-s1-5676248/this-teenager-who-wrote-a-research-paper-on-how-ai-could-impact-teen-jobs"
+      "title": "Palestinians react to U.S. announcing the start of second phase of ceasefire in Gaza",
+      "summary": "Palestinians say they're suffering as they wait for progress in next phase of U.S.-backed ceasefire.",
+      "source_url": "https://www.npr.org/2026/01/15/nx-s1-5678244/palestinians-react-to-u-s-announcing-the-start-of-second-phase-of-ceasefire-in-gaza"
     },
     {
       "panel": 2,
@@ -16,27 +16,27 @@
     },
     {
       "panel": 3,
+      "title": "State Department memo pauses immigrant visas for 75 countries",
+      "summary": "The Trump administration is pausing immigrant visa processing for nationals of 75 countries. Julia Gelatt of the Migration Policy Institute breaks down what the changes to immigration policy means.",
+      "source_url": "https://www.npr.org/2026/01/15/nx-s1-5677230/state-department-memo-pauses-immigrant-visas-for-75-countries"
+    },
+    {
+      "panel": 4,
+      "title": "This teenager who wrote a research paper on how AI could impact teen jobs",
+      "summary": "A 17-year-old in California who got curious about the impact of AI on typical teen jobs. She embarked on an ambitious economic research project and shared her findings with us.",
+      "source_url": "https://www.npr.org/2026/01/15/nx-s1-5676248/this-teenager-who-wrote-a-research-paper-on-how-ai-could-impact-teen-jobs"
+    },
+    {
+      "panel": 5,
       "title": "The USS Ford crew is struggling with sewage problems on board the Navy's new carrier",
       "summary": "Problems with the plumbing system on board America's newest aircraft carrier are getting worse. Issues with the toilets on the USS Ford continue even as it continues its deployment to the Caribbean.",
       "source_url": "https://www.npr.org/2026/01/15/nx-s1-5676229/the-uss-ford-crew-is-struggling-with-sewage-problems-on-board-the-navys-new-carrier"
     },
     {
-      "panel": 4,
-      "title": "Whiplash as addiction and mental health treatment gets cut and restored",
-      "summary": "Less than a day after the Trump administration slashed funding for addiction and mental health programs nationwide, the money was restored. Here's how this whiplash played out in Alabama.",
-      "source_url": "https://www.npr.org/2026/01/15/nx-s1-5677681/whiplash-as-addiction-and-mental-health-treatment-gets-cut-and-restored"
-    },
-    {
-      "panel": 5,
+      "panel": 6,
       "title": "If an Anne Boleyn portrait is really Elizabeth I, there's a good reason",
       "summary": "NPR's Ailsa Chang talks with Tudor historian Owen Emmerson about his theory that the face in a famous portrait of Anne Boleyn is actually that of her daughter, Elizabeth I.",
       "source_url": "https://www.npr.org/2026/01/15/nx-s1-5677174/if-an-anne-boleyn-portrait-is-really-elizabeth-i-theres-a-good-reason"
-    },
-    {
-      "panel": 6,
-      "title": "State Department memo pauses immigrant visas for 75 countries",
-      "summary": "The Trump administration is pausing immigrant visa processing for nationals of 75 countries. Julia Gelatt of the Migration Policy Institute breaks down what the changes to immigration policy means.",
-      "source_url": "https://www.npr.org/2026/01/15/nx-s1-5677230/state-department-memo-pauses-immigrant-visas-for-75-countries"
     }
   ]
 }
