@@ -1,0 +1,42 @@
+{
+  "date": "2026-01-02",
+  "image": "2026-01-02.jpg",
+  "stories": [
+    {
+      "panel": 1,
+      "title": "Naps, bruising, cognitive tests: Trump addresses aging questions",
+      "summary": "President Trump responds to questions about his age and cognitive abilities.",
+      "source_url": "https://www.npr.org/2026/01/02/nx-s1-5664801/naps-bruising-cognitive-tests-trump-addresses-aging-questions"
+    },
+    {
+      "panel": 2,
+      "title": "After a limited release of Epstein files leaves many unsatisfied, what's next?",
+      "summary": "The partial release of Jeffrey Epstein documents leaves questions unanswered.",
+      "source_url": "https://www.npr.org/2026/01/02/nx-s1-5662635/after-a-limited-release-of-epstein-files-leaves-many-unsatisfied-whats-next"
+    },
+    {
+      "panel": 3,
+      "title": "The crafters powering the AI boom",
+      "summary": "Inside the world of data labelers and content creators fueling artificial intelligence.",
+      "source_url": "https://www.npr.org/2026/01/02/nx-s1-5664153/the-crafters-powering-the-ai-boom"
+    },
+    {
+      "panel": 4,
+      "title": "Crypto soared in 2025 \u2014 and then crashed. Now what?",
+      "summary": "Analysis of the cryptocurrency market's volatile year.",
+      "source_url": "https://www.npr.org/2026/01/01/nx-s1-5642654/trump-crypto-winter-bitcoin"
+    },
+    {
+      "panel": 5,
+      "title": "Kevin Curry of 'Fit Men Cook' on how to find no and low cost groceries",
+      "summary": "Budget-friendly cooking tips from the popular food influencer.",
+      "source_url": "https://www.npr.org/2026/01/02/nx-s1-5641691/kevin-curry-of-fit-men-cook-on-how-to-find-no-and-low-cost-groceries"
+    },
+    {
+      "panel": 6,
+      "title": "Resolve to a new year, fun you \u2014 and it just might stick",
+      "summary": "Tips for making New Year's resolutions that actually last.",
+      "source_url": "https://www.npr.org/2026/01/02/nx-s1-5664170/resolve-to-a-new-year-fun-you-and-it-just-might-stick"
+    }
+  ]
+}

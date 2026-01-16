@@ -1,0 +1,42 @@
+{
+  "date": "2026-01-01",
+  "image": "2026-01-01.jpg",
+  "stories": [
+    {
+      "panel": 1,
+      "title": "Israel bans Doctors Without Borders in Gaza. This clinic offers life-saving care",
+      "summary": "Israel's ban on Doctors Without Borders impacts humanitarian efforts in Gaza.",
+      "source_url": "https://www.npr.org/2026/01/01/nx-s1-5662578/israel-bans-doctors-without-borders-in-gaza-this-clinic-offers-life-saving-care"
+    },
+    {
+      "panel": 2,
+      "title": "Dozens of people have died and 100 are injured after a fire at a Swiss resort bar",
+      "summary": "A devastating fire at a Swiss resort bar has killed dozens and injured over 100 people.",
+      "source_url": "https://www.npr.org/2026/01/01/nx-s1-5664066/dozens-of-people-have-died-and-100-are-injured-after-a-fire-at-a-swiss-resort-bar"
+    },
+    {
+      "panel": 3,
+      "title": "What's next for Berkshire Hathaway as longtime CEO Warren Buffett retires",
+      "summary": "Warren Buffett announces his retirement, raising questions about the future of Berkshire Hathaway.",
+      "source_url": "https://www.npr.org/2026/01/01/nx-s1-5662519/whats-next-for-berkshire-hathaway-as-longtime-ceo-warren-buffett-retires"
+    },
+    {
+      "panel": 4,
+      "title": "A film sheds new light on the private life of the first U.S. woman to go to space",
+      "summary": "A new documentary explores the personal life of Sally Ride, America's first woman astronaut.",
+      "source_url": "https://www.npr.org/2026/01/01/nx-s1-5423316-e1/a-film-sheds-new-light-on-the-private-life-of-the-first-u-s-woman-to-go-to-space"
+    },
+    {
+      "panel": 5,
+      "title": "Author John Green talks about living with obsessive compulsive disorder",
+      "summary": "Bestselling author John Green discusses his experience with OCD.",
+      "source_url": "https://www.npr.org/2026/01/01/nx-s1-5341546-e1/author-john-green-talks-about-living-with-obsessive-compulsive-disorder"
+    },
+    {
+      "panel": 6,
+      "title": "Dry January started with 1 person years ago \u2013 now its a phenom",
+      "summary": "The origins and growth of the Dry January movement from a single person's pledge to a global phenomenon.",
+      "source_url": "https://www.npr.org/2026/01/01/nx-s1-5662527/the-origins-of-dry-january"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "date": "2026-01-04",
+  "image": "2026-01-04.jpg",
+  "stories": [
+    {
+      "panel": 1,
+      "title": "Venezuelans describe the day after U.S. strikes",
+      "summary": "Citizens recount their experiences following the military operation.",
+      "source_url": "https://www.npr.org/2026/01/04/nx-s1-5666307/venezuelans-describe-the-day-after-u-s-strikes"
+    },
+    {
+      "panel": 2,
+      "title": "Who's in charge in Venezuela now?",
+      "summary": "Questions remain about governance in Venezuela after Maduro's removal.",
+      "source_url": "https://www.npr.org/2026/01/04/nx-s1-5666188/whos-in-charge-in-venezuela-now"
+    },
+    {
+      "panel": 3,
+      "title": "Trump wants U.S. oil companies in Venezuela. Here's what to know",
+      "summary": "The administration's plans for Venezuela's oil industry.",
+      "source_url": "https://www.npr.org/2026/01/04/nx-s1-5665795/trump-us-oil-companies-venezuela"
+    },
+    {
+      "panel": 4,
+      "title": "Covering US-Russian relations and a rapidly changing wartime Russia",
+      "summary": "Journalists discuss reporting on Russia during wartime.",
+      "source_url": "https://www.npr.org/2026/01/04/nx-s1-5649890/covering-us-russian-relations-and-a-rapidly-changing-wartime-russia"
+    },
+    {
+      "panel": 5,
+      "title": "Understanding how a warming climate might affect a crucial ocean current",
+      "summary": "Scientists study climate change impacts on the Atlantic Ocean circulation.",
+      "source_url": "https://www.npr.org/2026/01/04/nx-s1-5649714/understanding-how-a-warming-climate-might-be-affecting-a-crucial-ocean-current-system"
+    },
+    {
+      "panel": 6,
+      "title": "A year after the LA fires, finding the sounds that make a home",
+      "summary": "Survivors reflect on rebuilding after the devastating Los Angeles fires.",
+      "source_url": "https://www.npr.org/2026/01/04/nx-s1-5649824/a-year-after-the-la-fires-finding-the-sounds-that-make-a-home"
+    }
+  ]
+}

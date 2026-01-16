@@ -1,0 +1,42 @@
+{
+  "date": "2026-01-03",
+  "image": "2026-01-03.jpg",
+  "stories": [
+    {
+      "panel": 1,
+      "title": "Trump says the U.S. will run Venezuela after U.S. seizes Maduro",
+      "summary": "President Trump announces plans to administer Venezuela following Maduro's capture.",
+      "source_url": "https://www.npr.org/2026/01/03/nx-s1-5665723/trump-says-the-u-s-will-run-venezuela-after-u-s-seizes-maduro"
+    },
+    {
+      "panel": 2,
+      "title": "What we know about the military operation to capture Maduro",
+      "summary": "Details emerge about the U.S. operation that seized Venezuelan President Maduro.",
+      "source_url": "https://www.npr.org/2026/01/03/nx-s1-5665718/what-we-know-about-the-military-operation-to-capture-maduro"
+    },
+    {
+      "panel": 3,
+      "title": "Venezuela's government rejects U.S. claims as Caracas shows loyalty to Maduro",
+      "summary": "Venezuelan officials denounce U.S. actions as supporters rally for Maduro.",
+      "source_url": "https://www.npr.org/2026/01/03/nx-s1-5665652/venezuelas-government-rejects-u-s-claims-as-caracas-shows-loyalty-to-maduro"
+    },
+    {
+      "panel": 4,
+      "title": "Regional and global reactions to the operation in Venezuela",
+      "summary": "World leaders respond to U.S. military action in Venezuela.",
+      "source_url": "https://www.npr.org/2026/01/03/nx-s1-5665667/regional-and-global-reactions-to-the-operation-in-venezuela"
+    },
+    {
+      "panel": 5,
+      "title": "In Miami, Venezuelans hail U.S. move against Maduro",
+      "summary": "Venezuelan Americans in Miami celebrate the operation against Maduro.",
+      "source_url": "https://www.npr.org/2026/01/03/nx-s1-5665711/in-miami-venezuelans-hail-u-s-move-against-maduro"
+    },
+    {
+      "panel": 6,
+      "title": "Top House Democrat on what Congress should do next after Venezuela operation",
+      "summary": "Congressional Democrats respond to the military operation in Venezuela.",
+      "source_url": "https://www.npr.org/2026/01/03/nx-s1-5665701/top-house-democrat-on-what-congress-should-do-next-after-venezuela-operation"
+    }
+  ]
+}
