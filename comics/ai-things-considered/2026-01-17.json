@@ -4,21 +4,21 @@
   "stories": [
     {
       "panel": 1,
-      "title": "ICE surge sparks fear and resistance in Minneapolis",
-      "summary": "Minneapolis residents are resisting as federal immigration agents surge into their city, creating what some locals describe as an atmosphere of fear and siege on the streets.",
-      "source_url": "https://www.npr.org/2026/01/16/nx-s1-5677712/ice-surge-sparks-fear-and-resistance-in-minneapolis"
+      "title": "'You need this knowledge,' says Henry Louis Gates Jr. as new season of Finding Your Roots premieres",
+      "summary": "Henry Louis Gates Jr. previews the complex, multi-generational stories shaping the newest season of PBS' Finding Your Roots.",
+      "source_url": "https://www.npr.org/2026/01/17/nx-s1-5564755/you-need-this-knowledge-says-henry-louis-gates-jr-as-new-season-of-finding-your-roots-premieres"
     },
     {
       "panel": 2,
-      "title": "Uganda's longtime leader declared winner in disputed vote",
-      "summary": "Museveni claims victory in Uganda's contested election as opposition leader Bobi Wine goes into hiding amid chaos, violence and accusations of fraud.",
-      "source_url": "https://www.npr.org/2026/01/17/nx-s1-5680817/uganda-museveni-wine-election-disputed-election"
-    },
-    {
-      "panel": 3,
       "title": "Senators travel to Denmark as Greenland tensions rise",
       "summary": "A bipartisan group of Senators is in Denmark speaking to officials there as President Trump announces new tariffs and continues to talk about taking over Greenland.",
       "source_url": "https://www.npr.org/2026/01/17/nx-s1-5678525/senators-travel-to-denmark-as-greenland-tensions-rise"
+    },
+    {
+      "panel": 3,
+      "title": "'You need to find joy together,' says leader of Beth Israel synagogue's religious school after arson attack",
+      "summary": "A week after an arson fire at Mississippi's oldest synagogue, Rachel Myers, a leader of the congregation's religious school, talks about how the congregation is doing and about this weekend's services.",
+      "source_url": "https://www.npr.org/2026/01/17/nx-s1-5678633/you-need-to-find-joy-together-says-leader-of-beth-israel-synagogues-religious-school-after-arson-attack"
     },
     {
       "panel": 4,
@@ -28,15 +28,15 @@
     },
     {
       "panel": 5,
-      "title": "'You need to find joy together,' says leader of Beth Israel synagogue's religious school after arson attack",
-      "summary": "A week after an arson fire at Mississippi's oldest synagogue, Rachel Myers, a leader of the congregation's religious school, talks about how the congregation is doing and about this weekend's services.",
-      "source_url": "https://www.npr.org/2026/01/17/nx-s1-5678633/you-need-to-find-joy-together-says-leader-of-beth-israel-synagogues-religious-school-after-arson-attack"
+      "title": "ICE surge sparks fear and resistance in Minneapolis",
+      "summary": "Minneapolis residents are resisting as federal immigration agents surge into their city, creating what some locals describe as an atmosphere of fear and siege on the streets.",
+      "source_url": "https://www.npr.org/2026/01/16/nx-s1-5677712/ice-surge-sparks-fear-and-resistance-in-minneapolis"
     },
     {
       "panel": 6,
-      "title": "'You need this knowledge,' says Henry Louis Gates Jr. as new season of Finding Your Roots premieres",
-      "summary": "Henry Louis Gates Jr. previews the complex, multi-generational stories shaping the newest season of PBS' Finding Your Roots.",
-      "source_url": "https://www.npr.org/2026/01/17/nx-s1-5564755/you-need-this-knowledge-says-henry-louis-gates-jr-as-new-season-of-finding-your-roots-premieres"
+      "title": "Uganda's longtime leader declared winner in disputed vote",
+      "summary": "Museveni claims victory in Uganda's contested election as opposition leader Bobi Wine goes into hiding amid chaos, violence and accusations of fraud.",
+      "source_url": "https://www.npr.org/2026/01/17/nx-s1-5680817/uganda-museveni-wine-election-disputed-election"
     }
   ]
 }
