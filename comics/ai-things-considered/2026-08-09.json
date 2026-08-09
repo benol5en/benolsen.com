@@ -4,39 +4,39 @@
   "stories": [
     {
       "panel": 1,
-      "title": "GOP-controlled Senate delivers win for Trump with Blanche confirmation",
-      "summary": "The Senate narrowly confirmed former Trump personal attorney Todd Blanche as U.S. Attorney General, a major win for the president's approach to keeping the Justice Department close to the White House.",
-      "source_url": "https://www.npr.org/2026/08/08/nx-s1-5925869/gop-controlled-senate-delivers-win-for-trump-with-blanche-confirmation"
+      "title": "How AI is being used to track art stolen by the Nazis",
+      "summary": "As momentum builds to recover artworks stolen during World War Two by the Nazis, researchers have created an AI chatbot that aims to trace the ownership and location history of works of art.",
+      "source_url": "https://www.npr.org/2026/08/09/nx-s1-5922729/how-ai-is-being-used-to-track-art-stolen-by-the-nazis"
     },
     {
       "panel": 2,
+      "title": "Nearly 30 years after Tupac's death, the trial over his murder will finally begin",
+      "summary": "For decades the mystery of who killed Tupac Shakur plagued the public. In 2023, police charged Duane Davis, also known as \"Keefe D,\" with organizing Shakur's murder. The trial begins Monday.",
+      "source_url": "https://www.npr.org/2026/08/09/nx-s1-5924034/nearly-30-years-after-tupacs-death-the-trial-over-his-murder-will-finally-begin"
+    },
+    {
+      "panel": 3,
+      "title": "'Not a drop': Anger grows as Puerto Rico begins rationing water",
+      "summary": "Puerto Rico's government began cutting water service to people's homes this week, amid a severe drought that's exposing major weaknesses in the island's water delivery infrastructure.",
+      "source_url": "https://www.npr.org/2026/08/09/nx-s1-5923882/not-a-drop-anger-grows-as-puerto-rico-begins-rationing-water"
+    },
+    {
+      "panel": 4,
       "title": "How a delivery driver and poet won one of China's highest honors in literature",
       "summary": "Wang Jibing, a writer and delivery driver, has won one of China's most prestigious award for poetry. Professor Eileen Cheng-yin Chow of Duke University explains why his work has had such huge impact.",
       "source_url": "https://www.npr.org/2026/08/08/nx-s1-5922489/how-a-delivery-driver-and-poet-won-one-of-chinas-highest-honors-in-literature"
     },
     {
-      "panel": 3,
+      "panel": 5,
       "title": "National Guard deployment in D.C. approaches one year",
       "summary": "President Trump's deployment of the National Guard will hit the one year mark next week. The presence of armed, uniformed troops on the street has become increasingly normalized in the capital.",
       "source_url": "https://www.npr.org/2026/08/08/nx-s1-5924868/national-guard-deployment-in-d-c-approaches-one-year"
     },
     {
-      "panel": 4,
-      "title": "The daring, 10,000-mile-long journey to circumnavigate the Arctic Ocean",
-      "summary": "NPR's Rob Schmitz speaks with Captain Matt Rutherford, who is attempting to be the first person to circumnavigate the Arctic Ocean, solo and without any assistance.",
-      "source_url": "https://www.npr.org/2026/08/08/nx-s1-5923345/the-daring-10-000-mile-long-journey-to-circumnavigate-the-arctic-ocean"
-    },
-    {
-      "panel": 5,
-      "title": "Despite war and strife, millions of Shia Muslims in Iraq gather for sacred pilgrimage",
-      "summary": "More than 20 million Shia pilgrims flocked to a shrine city in Iraq this week, including millions of Iranians, despite the wars tearing across the Middle East.",
-      "source_url": "https://www.npr.org/2026/08/08/nx-s1-5923961/despite-war-and-strife-millions-of-shia-muslims-in-iraq-gather-for-sacred-pilgrimage"
-    },
-    {
       "panel": 6,
-      "title": "K-pop's global wave inspires Chile's next pop stars",
-      "summary": "K-pop conquered the world \u2014 now Chile's young creatives are remixing the movement and making it their own.",
-      "source_url": "https://www.npr.org/2026/08/08/nx-s1-5899791/k-pop-chile-bts"
+      "title": "Meet the man circumnavigating the Arctic Ocean, alone",
+      "summary": "Matt Rutherford is sailing 10,000 nautical miles, through ice floes and gales, to try and accomplish a world first. He spoke with NPR from the cabin of his boat.",
+      "source_url": "https://www.npr.org/2026/08/08/nx-s1-5923345/circumnavigate-arctic-ocean-matt-rutherford-10000-mile-odyssey"
     }
   ]
 }
