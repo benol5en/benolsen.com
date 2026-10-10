@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-10",
+  "image": "2026-10-10.jpg",
+  "stories": [
+    {
+      "panel": 1,
+      "title": "For reporters covering AI, keeping up with story is both tough and exciting",
+      "summary": "How NPR's team covering AI covers their increasingly important and fast moving beat.",
+      "source_url": "https://www.npr.org/2026/10/10/nx-s1-5994366/for-reporters-covering-ai-keeping-up-with-story-is-both-tough-and-exciting"
+    },
+    {
+      "panel": 2,
+      "title": "What are they saying about AI at San Francisco Tech Week?",
+      "summary": "Tech workers gathered in San Francisco this week to talk about the opportunities they see for their industry, their mixed feelings about AI, and the high cost of living in the Bay Area.",
+      "source_url": "https://www.npr.org/2026/10/10/nx-s1-5995420/what-are-they-saying-about-ai-at-san-francisco-tech-week"
+    },
+    {
+      "panel": 3,
+      "title": "Bayeux Tapestry's London tour spurs enthusiasts to Battle of Hastings reenactment",
+      "summary": "A reenactment of the Battle of Hastings, which took place almost a millennium ago, is drawing crowds of enthusiasts in the UK.",
+      "source_url": "https://www.npr.org/2026/10/10/nx-s1-5993847/bayeux-tapestrys-london-tour-spurs-enthusiasts-to-battle-of-hastings-re-enactment"
+    },
+    {
+      "panel": 4,
+      "title": "Isaias becomes tropical storm, heads towards Tennessee Valley",
+      "summary": "Isaias has become a tropical storm, moving towards the Tennessee Valley. Residents in the Florida Panhandle react to the destruction.",
+      "source_url": "https://www.npr.org/2026/10/10/nx-s1-5996919/isaias-becomes-tropical-storm-heads-towards-tennessee-valley"
+    },
+    {
+      "panel": 5,
+      "title": "Protests against voter roll revisions rock capital of world's largest democracy",
+      "summary": "Parts of the capital city of India, the world's largest democracy, are on lockdown. Protests over sweeping revisions to the voter rolls were met with a massive police crackdown.",
+      "source_url": "https://www.npr.org/2026/10/10/nx-s1-5995118/protests-against-voter-roll-revisions-rock-capital-of-worlds-largest-democracy"
+    },
+    {
+      "panel": 6,
+      "title": "South African human rights lawyer Navi Pillay wins Nobel Peace Prize",
+      "summary": "South African human rights lawyer Navi Pillay wins the 2026 Nobel Peace Prize for her\u00a0lifelong defense of human rights and international law.",
+      "source_url": "https://www.npr.org/2026/10/09/nx-s1-5996461/south-african-human-rights-lawyer-navi-pillay-wins-nobel-peace-prize"
+    }
+  ]
+}
