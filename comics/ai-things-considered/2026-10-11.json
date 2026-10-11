@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-11",
+  "image": "2026-10-11.jpg",
+  "stories": [
+    {
+      "panel": 1,
+      "title": "For reporters covering AI, keeping up with story is both tough and exciting",
+      "summary": "How NPR's team covering AI covers their increasingly important and fast moving beat.",
+      "source_url": "https://www.npr.org/2026/10/10/nx-s1-5994366/for-reporters-covering-ai-keeping-up-with-story-is-both-tough-and-exciting"
+    },
+    {
+      "panel": 2,
+      "title": "How personal data is being used to control what customers see and pay",
+      "summary": "NPR's Joel Rose speaks with Lindsay Owens, president of the economic think tank Groundwork Collaborative, about how companies using data to transform the products and prices customers see.",
+      "source_url": "https://www.npr.org/2026/10/11/nx-s1-5995376/how-personal-data-is-being-used-to-control-what-customers-see-and-pay"
+    },
+    {
+      "panel": 3,
+      "title": "Ukrainian MP calls U.S.-Russia diesel deal a 'betrayal'",
+      "summary": "NPR's Joel Rose speaks with Ukrainian Minister of Parliament, Oleksandr Merezhko, about the U.S.'s diesel deal with Russia will impact Ukraine.",
+      "source_url": "https://www.npr.org/2026/10/11/nx-s1-5997466/ukrainian-mp-calls-u-s-russia-diesel-deal-a-betrayal"
+    },
+    {
+      "panel": 4,
+      "title": "'Genius grant' winner Immanuel Wilkins explains how he weaves Black history into his music",
+      "summary": "Saxophonist and composer Immanuel Wilkins talks about the impact that winning a 2026 MacArthur Fellowship will have on his art.",
+      "source_url": "https://www.npr.org/2026/10/10/nx-s1-5995208/genius-grant-winner-immanuel-wilkins-explains-how-he-weaves-black-history-into-his-music"
+    },
+    {
+      "panel": 5,
+      "title": "Demand rising for death doulas, who help with end-of-life care",
+      "summary": "Death doulas are non-medical professionals who help with end-of-life care. And their numbers are growing.",
+      "source_url": "https://www.npr.org/2026/10/11/nx-s1-5843096/demand-rising-for-death-doulas-who-help-with-end-of-life-care"
+    },
+    {
+      "panel": 6,
+      "title": "Cineplexity: When your partner doesn't like the same movies you do",
+      "summary": "NPR producers and film buffs Marc Rivers and Kathryn Fink reflect on when a film they showed their significant others didn't go over so well.",
+      "source_url": "https://www.npr.org/2026/10/11/nx-s1-5992936/cineplexity-when-your-partner-doesnt-like-the-same-movies-you-do"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
-  "date": "2026-10-10",
-  "image": "2026-10-10.jpg",
+  "date": "2026-10-11",
+  "image": "2026-10-11.jpg",
   "stories": [
     {
       "panel": 1,
@@ -10,33 +10,33 @@
     },
     {
       "panel": 2,
-      "title": "What are they saying about AI at San Francisco Tech Week?",
-      "summary": "Tech workers gathered in San Francisco this week to talk about the opportunities they see for their industry, their mixed feelings about AI, and the high cost of living in the Bay Area.",
-      "source_url": "https://www.npr.org/2026/10/10/nx-s1-5995420/what-are-they-saying-about-ai-at-san-francisco-tech-week"
+      "title": "How personal data is being used to control what customers see and pay",
+      "summary": "NPR's Joel Rose speaks with Lindsay Owens, president of the economic think tank Groundwork Collaborative, about how companies using data to transform the products and prices customers see.",
+      "source_url": "https://www.npr.org/2026/10/11/nx-s1-5995376/how-personal-data-is-being-used-to-control-what-customers-see-and-pay"
     },
     {
       "panel": 3,
-      "title": "Bayeux Tapestry's London tour spurs enthusiasts to Battle of Hastings reenactment",
-      "summary": "A reenactment of the Battle of Hastings, which took place almost a millennium ago, is drawing crowds of enthusiasts in the UK.",
-      "source_url": "https://www.npr.org/2026/10/10/nx-s1-5993847/bayeux-tapestrys-london-tour-spurs-enthusiasts-to-battle-of-hastings-re-enactment"
+      "title": "Ukrainian MP calls U.S.-Russia diesel deal a 'betrayal'",
+      "summary": "NPR's Joel Rose speaks with Ukrainian Minister of Parliament, Oleksandr Merezhko, about the U.S.'s diesel deal with Russia will impact Ukraine.",
+      "source_url": "https://www.npr.org/2026/10/11/nx-s1-5997466/ukrainian-mp-calls-u-s-russia-diesel-deal-a-betrayal"
     },
     {
       "panel": 4,
-      "title": "Isaias becomes tropical storm, heads towards Tennessee Valley",
-      "summary": "Isaias has become a tropical storm, moving towards the Tennessee Valley. Residents in the Florida Panhandle react to the destruction.",
-      "source_url": "https://www.npr.org/2026/10/10/nx-s1-5996919/isaias-becomes-tropical-storm-heads-towards-tennessee-valley"
+      "title": "'Genius grant' winner Immanuel Wilkins explains how he weaves Black history into his music",
+      "summary": "Saxophonist and composer Immanuel Wilkins talks about the impact that winning a 2026 MacArthur Fellowship will have on his art.",
+      "source_url": "https://www.npr.org/2026/10/10/nx-s1-5995208/genius-grant-winner-immanuel-wilkins-explains-how-he-weaves-black-history-into-his-music"
     },
     {
       "panel": 5,
-      "title": "Protests against voter roll revisions rock capital of world's largest democracy",
-      "summary": "Parts of the capital city of India, the world's largest democracy, are on lockdown. Protests over sweeping revisions to the voter rolls were met with a massive police crackdown.",
-      "source_url": "https://www.npr.org/2026/10/10/nx-s1-5995118/protests-against-voter-roll-revisions-rock-capital-of-worlds-largest-democracy"
+      "title": "Demand rising for death doulas, who help with end-of-life care",
+      "summary": "Death doulas are non-medical professionals who help with end-of-life care. And their numbers are growing.",
+      "source_url": "https://www.npr.org/2026/10/11/nx-s1-5843096/demand-rising-for-death-doulas-who-help-with-end-of-life-care"
     },
     {
       "panel": 6,
-      "title": "South African human rights lawyer Navi Pillay wins Nobel Peace Prize",
-      "summary": "South African human rights lawyer Navi Pillay wins the 2026 Nobel Peace Prize for her\u00a0lifelong defense of human rights and international law.",
-      "source_url": "https://www.npr.org/2026/10/09/nx-s1-5996461/south-african-human-rights-lawyer-navi-pillay-wins-nobel-peace-prize"
+      "title": "Cineplexity: When your partner doesn't like the same movies you do",
+      "summary": "NPR producers and film buffs Marc Rivers and Kathryn Fink reflect on when a film they showed their significant others didn't go over so well.",
+      "source_url": "https://www.npr.org/2026/10/11/nx-s1-5992936/cineplexity-when-your-partner-doesnt-like-the-same-movies-you-do"
     }
   ]
 }
