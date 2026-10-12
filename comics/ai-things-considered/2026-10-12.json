@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-12",
+  "image": "2026-10-12.jpg",
+  "stories": [
+    {
+      "panel": 1,
+      "title": "Trump announced a partial Russia-Ukraine ceasefire. Did either country know about it?",
+      "summary": "Ukraine's leader says Russia is continuing to attack Ukraine and is ignoring an \"energy ceasefire\" declared by President Trump.",
+      "source_url": "https://www.npr.org/2026/10/12/nx-s1-5998808/trump-announced-a-partial-russia-ukraine-ceasefire-did-either-country-know-about-it"
+    },
+    {
+      "panel": 2,
+      "title": "Over 1,000 children are buried at juvenile detention centers nationwide",
+      "summary": "In the woods near a Maryland juvenile detention center, officials found the graves of more than 200 Black boys. It's one of 40 similar gravesites across the country, from Oregon to Maine.",
+      "source_url": "https://www.npr.org/2026/10/12/nx-s1-5986124-e1/over-1-000-children-are-buried-at-juvenile-detention-centers-nationwide"
+    },
+    {
+      "panel": 3,
+      "title": "Farmers say they'll take the relief of Trump's EO \u2014 but they're still hurting",
+      "summary": "President Trump says his Monday executive order temporarily suspending federal taxes on diesel will be a big relief for farmers. Some farmers call it a campaign ploy with marginal impact.",
+      "source_url": "https://www.npr.org/2026/10/12/nx-s1-5993837/farmers-say-theyll-take-the-relief-of-trumps-eo-but-theyre-still-hurting"
+    },
+    {
+      "panel": 4,
+      "title": "A Korean city borrows an educational model from the U.S. amid AI concerns",
+      "summary": "Some South Korean schools have imported a U.S. educational model to boost literacy skills and independent thinking eroded by AI and a test-focused Korean educational system.",
+      "source_url": "https://www.npr.org/2026/10/12/nx-s1-5979129/a-korean-city-borrows-an-educational-model-from-the-u-s-amid-ai-concerns"
+    },
+    {
+      "panel": 5,
+      "title": "California voters consider one-time 5% tax for billionaires",
+      "summary": "California voters are forming their opinions on a novel way to tax the rich \u2014 a proposal to charge 5% one time on billionaires' overall wealth.",
+      "source_url": "https://www.npr.org/2026/10/12/nx-s1-5995443/california-voters-consider-one-time-5-tax-for-billionaires"
+    },
+    {
+      "panel": 6,
+      "title": "61-year-old woman holds plank for 5 hours in quest for new world record",
+      "summary": "DonnaJean Wilde held a plank for five hours at the Huntsman World Senior Games earlier this month in Utah. It could be a new world record for longest plank held by a woman. But why does she do it?",
+      "source_url": "https://www.npr.org/2026/10/12/nx-s1-5996547/61-year-old-woman-holds-plank-for-5-hours-in-quest-for-new-world-record"
+    }
+  ]
+}
