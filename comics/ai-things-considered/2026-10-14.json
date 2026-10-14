@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-14",
+  "image": "2026-10-14.jpg",
+  "stories": [
+    {
+      "panel": 1,
+      "title": "Ukraine says its satellite communications have suddenly been restricted",
+      "summary": "Ukraine says its critical satellite communications system, which is supplied by the U.S. and guides its drones, has suddenly been restricted. It comes as the Trump administration has told Ukraine to stop attacking Russia's oil facilities.",
+      "source_url": "https://www.npr.org/2026/10/14/nx-s1-6001590/ukraine-says-its-satellite-communications-have-suddenly-been-restricted"
+    },
+    {
+      "panel": 2,
+      "title": "What's the Pope's prognosis?",
+      "summary": "Pope Leo is resting in a Roman hospital after undergoing lung surgery to remove a cancerous growth, according to the Vatican. Meanwhile, experts are weighin in about what this health scare means for the 71-year-old pontiff and his papacy?",
+      "source_url": "https://www.npr.org/2026/10/14/nx-s1-6001573/whats-the-popes-prognosis"
+    },
+    {
+      "panel": 3,
+      "title": "A rocky first press briefing for a rookie White House press secretary",
+      "summary": "Katie Zacharia's first White House press briefing was short and often halting.  The new press secretary chosen by President Trump left a lot of unanswered questions, including some uncertainties about her own qualifications.",
+      "source_url": "https://www.npr.org/2026/10/14/nx-s1-6001626/a-rocky-first-press-briefing-for-a-rookie-white-house-press-secretary"
+    },
+    {
+      "panel": 4,
+      "title": "How one network of mall skincare stores targeted vulnerable people across the U.S.",
+      "summary": "Free samples, high-pressure pitches, and $50,000 bills: An NPR investigation reveals how a network of mall skincare stores scammed shoppers out of thousands of dollars.",
+      "source_url": "https://www.npr.org/2026/10/14/nx-s1-5992778/how-one-network-of-mall-skincare-stores-targeted-vulnerable-people-across-the-u-s"
+    },
+    {
+      "panel": 5,
+      "title": "Cornell's president has not resigned despite heavy scrutiny",
+      "summary": "The president of Cornell University, Michael Kotlikoff, is under fire over the university's handling of a gang rape at a fraternity party in 2024.",
+      "source_url": "https://www.npr.org/2026/10/14/nx-s1-6001601/cornells-president-has-not-resigned-despite-heavy-scrutiny"
+    },
+    {
+      "panel": 6,
+      "title": "Germany's intelligence scandal has a long list of possible consequences",
+      "summary": "The arrest last week of August Hanning, a former head of Germany's intelligence service, on treason and espionage charges has left the country in shock. But it's also worrying Western agencies like the CIA, which shares classified information with Germany.",
+      "source_url": "https://www.npr.org/2026/10/14/nx-s1-5995367/germanys-intelligence-scandal-has-a-long-list-of-possible-consequences"
+    }
+  ]
+}
